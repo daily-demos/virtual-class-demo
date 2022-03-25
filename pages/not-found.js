@@ -4,7 +4,7 @@ import MessageCard from '../components/MessageCard';
 export default function RoomNotFound() {
   return (
     <div className="not-found">
-      <MessageCard error header="Room not found">
+      <MessageCard error header="Room not found" onBack={() => window.location.href = "/"}>
         The room you are trying to join does not exist. Have you created the
         room using the Daily REST API or the dashboard?
       </MessageCard>
