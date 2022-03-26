@@ -11,14 +11,16 @@ import { ReactComponent as IconTranscription } from '../../icons/transcription-s
 export const Header = () => {
   const { allowToTalk, setAllowToTalk } = useAppState();
   const { localParticipant } = useParticipants();
-  const { isTranscribing, toggleTranscription } = useTranscription();
+  const { isTranscribing, toggleTranscription, isTranscriptionEnabled } = useTranscription();
 
   return useMemo(
     () => (
       <header className="room-header">
         <Button variant="dark" IconBefore={IconInvite}>Invite to class</Button>
         <div className="text-right">
-          <IconButton label="Show transcriptions" Icon={IconTranscription} isActive={isTranscribing} onClick={toggleTranscription} />
+          { isTranscriptionEnabled && (
+            <IconButton label="Show transcriptions" Icon={IconTranscription} isActive={isTranscribing} onClick={toggleTranscription} /> 
+          )}
           {localParticipant?.owner && (
             <IconButton label="Allow students to talk" Icon={IconTalk} isActive={allowToTalk} onClick={setAllowToTalk} />
           )}
@@ -47,7 +49,7 @@ export const Header = () => {
         `}</style>
       </header>
     ),
-    [allowToTalk, isTranscribing, localParticipant?.owner, setAllowToTalk, toggleTranscription]
+    [allowToTalk, isTranscribing, isTranscriptionEnabled, localParticipant?.owner, setAllowToTalk, toggleTranscription]
   );
 };
 

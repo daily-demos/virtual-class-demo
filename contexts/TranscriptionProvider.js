@@ -3,10 +3,12 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { useCallState } from './CallProvider';
 import PropTypes from 'prop-types';
+import { useRoom } from '@daily-co/daily-react-hooks';
 
 export const TranscriptionContext = createContext();
 
@@ -14,6 +16,8 @@ export const TranscriptionProvider = ({ children }) => {
   const { callObject } = useCallState();
   const [transcriptionHistory, setTranscriptionHistory] = useState([]);
   const [isTranscribing, setIsTranscribing] = useState(false);
+
+  const room = useRoom();
 
   const handleNewMessage = useCallback(
     (e) => {
@@ -47,6 +51,11 @@ export const TranscriptionProvider = ({ children }) => {
     else await callObject.startTranscription();
   }, [callObject, isTranscribing]);
 
+ const isTranscriptionEnabled = useMemo(() => {
+   const isEnabled = Boolean(room?.domainConfig?.enable_transcription);
+   return isEnabled;
+  }, [room]);
+
   useEffect(() => {
     if (!callObject) {
       return false;
@@ -75,6 +84,7 @@ export const TranscriptionProvider = ({ children }) => {
         isTranscribing,
         transcriptionHistory,
         toggleTranscription,
+        isTranscriptionEnabled,
       }}
     >
       {children}
