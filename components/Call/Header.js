@@ -18,8 +18,11 @@ export const Header = () => {
       <header className="room-header">
         <Button variant="dark" IconBefore={IconInvite}>Invite to class</Button>
         <div className="text-right">
-          { isTranscriptionEnabled && (
+          { isTranscriptionEnabled ? (
             <IconButton label="Show transcriptions" Icon={IconTranscription} isActive={isTranscribing} onClick={toggleTranscription} /> 
+          ) :
+          (
+            <IconButton label="Transcription not supported on your domain" Icon={IconTranscription} onClick={() => {window.open("https://docs.daily.co/reference/daily-js/events/transcription-events#main")}} />
           )}
           {localParticipant?.owner && (
             <IconButton label="Allow students to talk" Icon={IconTalk} isActive={allowToTalk} onClick={setAllowToTalk} />
