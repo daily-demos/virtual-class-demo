@@ -27,7 +27,7 @@ export const Header = () => {
           Invite to class
         </Button>
         <div className="text-right">
-          {isTranscriptionEnabled ? (
+          {localParticipant?.owner && isTranscriptionEnabled ? (
             <IconButton
               label="Show transcriptions"
               Icon={IconTranscription}
