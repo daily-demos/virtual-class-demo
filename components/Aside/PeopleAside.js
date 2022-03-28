@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Aside } from './Aside';
 import { ReactComponent as IconCamOff } from '../../icons/camera-off-sm.svg';
 import { ReactComponent as IconCamOn } from '../../icons/camera-on-sm.svg';
@@ -15,6 +15,8 @@ export const PEOPLE_ASIDE = 'people';
 
 const PersonRow = ({ sessionId, isOwner = false }) => {
   const participant = useParticipant(sessionId);
+
+  if (!participant) return;
   return (
     <div className="person-row">
       <div className="name">
@@ -103,6 +105,28 @@ export const PeopleAside = () => {
   const { showAside, setShowAside } = useUIState();
   const { participantIds, isOwner } = useParticipants();
 
+  const muteAll = useCallback(
+    (deviceType) => {
+      let updatedParticipantList = {};
+      // Accommodate muting mics and cameras
+      const newSetting =
+        deviceType === 'video' ? { setVideo: false } : { setAudio: false };
+      for (let id in callObject.participants()) {
+        // Do not update the local participant's device (aka the instructor)
+        if (id === 'local') continue;
+
+        updatedParticipantList[id] = newSetting;
+      }
+
+      // Update all participants at once
+      callObject.updateParticipants(updatedParticipantList);
+    },
+    [callObject]
+  );
+
+  const handleMuteAllAudio = () => muteAll('audio');
+  const handleMuteAllVideo = () => muteAll('video');
+
   if (!showAside || showAside !== PEOPLE_ASIDE) {
     return null;
   }
@@ -116,9 +140,7 @@ export const PeopleAside = () => {
               fullWidth
               size="tiny"
               variant="outline-gray"
-              onClick={() =>
-                callObject.updateParticipants({ '*': { setAudio: false } })
-              }
+              onClick={handleMuteAllAudio}
             >
               Mute all mics
             </Button>
@@ -126,9 +148,7 @@ export const PeopleAside = () => {
               fullWidth
               size="tiny"
               variant="outline-gray"
-              onClick={() =>
-                callObject.updateParticipants({ '*': { setVideo: false } })
-              }
+              onClick={handleMuteAllVideo}
             >
               Mute all cams
             </Button>
