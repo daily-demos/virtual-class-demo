@@ -35,14 +35,20 @@ export const HairCheck = () => {
   );
   const localParticipant = useLocalParticipant();
 
-  const camMuted = useMemo(
-    () => !localParticipant?.video || hasCamError,
-    [hasCamError, localParticipant?.video]
+  const isCamMuted = useMemo(
+    () => {
+      const  videoState = localParticipant?.tracks?.video;
+      return videoState?.state === 'off' || videoState?.state === 'blocked' || hasCamError
+    },
+    [hasCamError, localParticipant?.tracks?.video]
   );
 
-  const micMuted = useMemo(
-    () => !localParticipant?.audio || hasMicError,
-    [hasMicError, localParticipant?.audio]
+  const isMicMuted = useMemo(
+    () => {
+      const audioState = localParticipant?.tracks?.audio;
+      return audioState?.state === 'off' || audioState?.state === 'blocked' || hasMicError
+    },
+    [hasCamError, localParticipant?.tracks?.audio]
   );
 
   const isLoading = camState === 'pending' || micState === 'pending';
@@ -206,8 +212,8 @@ export const HairCheck = () => {
                 ))}
             </div>
             <div className="mute-buttons">
-              <MuteButton isMuted={camMuted} disabled={!!hasCamError} />
-              <MuteButton mic isMuted={micMuted} disabled={!!hasMicError} />
+              <MuteButton isMuted={isCamMuted} disabled={!!hasCamError} />
+              <MuteButton mic isMuted={isMicMuted} disabled={!!hasMicError} />
             </div>
             {tileMemo}
           </div>
