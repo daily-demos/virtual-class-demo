@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useCallState } from './CallProvider';
 import PropTypes from 'prop-types';
 import { useRoom } from '@daily-co/daily-react-hooks';
@@ -51,10 +44,9 @@ export const TranscriptionProvider = ({ children }) => {
     else await callObject.startTranscription();
   }, [callObject, isTranscribing]);
 
- const isTranscriptionEnabled = useMemo(() => {
-   const isEnabled = Boolean(room?.domainConfig?.enable_transcription);
-   return isEnabled;
-  }, [room]);
+ const isTranscriptionEnabled = useMemo(() =>
+   Boolean(room?.domainConfig?.enable_transcription),
+   [room]);
 
   useEffect(() => {
     if (!callObject) {
