@@ -26,25 +26,25 @@ export const Header = () => {
         >
           Invite to class
         </Button>
-        <div className="text-right">
-          {localParticipant?.owner && isTranscriptionEnabled ? (
-            <IconButton
-              label="Show transcriptions"
-              Icon={IconTranscription}
-              isActive={isTranscribing}
-              onClick={toggleTranscription}
-            />
-          ) : (
-            <IconButton
-              label="Transcription not supported on your domain"
-              Icon={IconTranscription}
-              onClick={() => window.open('https://docs.daily.co/reference/daily-js/events/transcription-events#main')}
-            />
-          )}
-          {localParticipant?.owner && (
+        {localParticipant?.owner && (
+          <div className="text-right">
+            {isTranscriptionEnabled ? (
+              <IconButton
+                label="Show transcriptions"
+                Icon={IconTranscription}
+                isActive={isTranscribing}
+                onClick={toggleTranscription}
+              />
+            ) : (
+              <IconButton
+                label="Transcription not supported on your domain"
+                Icon={IconTranscription}
+                onClick={() => window.open('https://docs.daily.co/reference/daily-js/events/transcription-events#main')}
+              />
+            )}
             <IconButton label="Allow students to talk" Icon={IconTalk} isActive={allowToTalk} onClick={setAllowToTalk} />
-          )}
-        </div>
+          </div>
+        )}
         <style jsx>{`
           .room-header {
             display: flex;
