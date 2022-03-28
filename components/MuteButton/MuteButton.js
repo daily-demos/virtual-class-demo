@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ReactComponent as IconCameraOff } from '../../icons/camera-off-md.svg';
 import { ReactComponent as IconCameraOn } from '../../icons/camera-on-md.svg';
 import { ReactComponent as IconMicOff } from '../../icons/mic-off-md.svg';
@@ -16,7 +16,9 @@ export const MuteButton = ({
   ...props
 }) => {
   const { callObject } = useCallState();
-  const [muted, setMuted] = useState(isMuted);
+  const [muted, setMuted] = useState(!isMuted);
+
+  useEffect(() => setMuted(!isMuted), [isMuted]);
 
   const toggleDevice = (newState) => {
     if (mic) {
