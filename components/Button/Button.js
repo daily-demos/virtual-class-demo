@@ -317,14 +317,12 @@ export const Button = forwardRef(
 
           .button.white {
             background: white;
-            border: 0px;
+            border: 1px solid #C8D1DC;
           }
           .button.white:hover,
           .button.white:focus,
           .button.white:active {
-            background: var(--gray-wash);
-            border: 0px;
-            color: var(--primary-default);
+            background: white;
           }
           .button.white:focus {
             box-shadow: 0 0 0px 3px rgba(0, 0, 0, 0.15);
