@@ -16,7 +16,7 @@ export const PEOPLE_ASIDE = 'people';
 const PersonRow = ({ sessionId, isOwner = false }) => {
   const participant = useParticipant(sessionId);
 
-  if (!participant) return;
+  if (!participant) return null;
   return (
     <div className="person-row">
       <div className="name">
