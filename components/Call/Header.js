@@ -7,16 +7,25 @@ import { useTranscription } from '../../contexts/TranscriptionProvider';
 import { ReactComponent as IconInvite } from '../../icons/invite-md.svg';
 import { ReactComponent as IconTalk } from '../../icons/talk-sm.svg';
 import { ReactComponent as IconTranscription } from '../../icons/transcription-sm.svg';
+import { useUIState } from '../../contexts/UIStateProvider';
+import { INVITE_OTHERS_MODAL } from './InviteOthersModal';
 
 export const Header = () => {
   const { allowToTalk, setAllowToTalk } = useAppState();
   const { localParticipant } = useParticipants();
   const { isTranscribing, toggleTranscription, isTranscriptionEnabled } = useTranscription();
+  const { openModal } = useUIState();
 
   return useMemo(
     () => (
       <header className="room-header">
-        <Button variant="dark" IconBefore={IconInvite}>Invite to class</Button>
+        <Button
+          variant="dark"
+          IconBefore={IconInvite}
+          onClick={() => openModal(INVITE_OTHERS_MODAL)}
+        >
+          Invite to class
+        </Button>
         <div className="text-right">
           {isTranscriptionEnabled ? (
             <IconButton
@@ -60,7 +69,15 @@ export const Header = () => {
         `}</style>
       </header>
     ),
-    [allowToTalk, isTranscribing, isTranscriptionEnabled, localParticipant?.owner, setAllowToTalk, toggleTranscription]
+    [
+      allowToTalk,
+      isTranscribing,
+      isTranscriptionEnabled,
+      localParticipant?.owner,
+      setAllowToTalk,
+      toggleTranscription,
+      openModal
+    ]
   );
 };
 
