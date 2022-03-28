@@ -20,9 +20,7 @@ export const ChatProvider = ({ children }) => {
     (e) => {
       if (e?.data?.message?.type) return;
       const participants = callObject.participants();
-      const sender = participants[e.fromId].user_name
-        ? participants[e.fromId].user_name
-        : 'Guest';
+      const sender = participants[e.fromId].user_name ?? 'Guest';
 
       setChatHistory((oldState) => [
         ...oldState,
