@@ -77,7 +77,9 @@ export const Intro = ({
         <CardFooter divider>
           <div className="footer">
             <div>Powered by</div>
-            <Image src="/assets/daily-logo-dark.svg" width="105" height="42" alt="Daily's Logo" />
+            <a href="https://daily.co">
+              <Image src="/assets/daily-logo-dark.svg" width="105" height="42" alt="Daily's Logo" />
+            </a>
           </div>
         </CardFooter>
       </Card>
