@@ -43,9 +43,7 @@ export const ChatProvider = ({ children }) => {
       callObject.sendAppMessage({ message }, '*');
 
       // Get the sender (local participant) name
-      const sender = callObject.participants().local.user_name
-        ? callObject.participants().local.user_name
-        : 'Guest';
+      const sender = callObject.participants().local.user_name ?? 'Guest';
 
       // Update local chat history
       return setChatHistory((oldState) => [
