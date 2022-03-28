@@ -107,6 +107,15 @@ export const PeopleAside = () => {
 
   const muteAll = useCallback(
     (deviceType) => {
+      if (!deviceType) {
+        console.error("missing device type to mute");
+        return;
+      }
+      const lcDeviceType = deviceType.toLowerCase();
+      if (lcDeviceType !== "audio" && lcDeviceType !== "video") {
+        console.error(`failed to recognize device type to mute (${deviceType})`)
+        return;
+      }
       let updatedParticipantList = {};
       // Accommodate muting mics and cameras
       const newSetting =
