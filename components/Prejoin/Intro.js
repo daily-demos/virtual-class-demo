@@ -13,7 +13,7 @@ export const Intro = ({
   creating,
   onCreate,
 }) => {
-  const [startTime, setStartTime] = useState(null);
+  const [startTime, setStartTime] = useState('');
   const [duration, setDuration] = useState("30");
 
   useEffect(() => {

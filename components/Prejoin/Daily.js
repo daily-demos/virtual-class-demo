@@ -1,16 +1,33 @@
 import React from 'react';
 import Image from 'next/image';
+import { ReactComponent as IconPoint } from '../../icons/point-sm.svg';
+
+const IntroPoint = ({ children }) => {
+  return (
+    <div>
+      <IconPoint style={{ marginRight: '.5em' }} />
+      <p>{children}</p>
+      <style jsx>{`
+        * {
+          display: flex;
+          align-items: center;
+        }
+      `}</style>
+    </div>
+  )
+};
 
 const Daily = () => {
   return (
     <div className="logo">
       <Image src="/assets/daily-logo-dark.svg" alt="Daily Logo" width="140px" height="52px" />
       <div className="content">
-        <p>Some selling point here.</p>
-        <p>Some selling point here.</p>
-        <p>Some selling point here.</p>
-        <p>Some selling point here.</p>
-        <p>Some selling point here.</p>
+        <IntroPoint>Some selling point here.</IntroPoint>
+        <IntroPoint>Some selling point here.</IntroPoint>
+        <IntroPoint>Some selling point here.</IntroPoint>
+        <IntroPoint>Some selling point here.</IntroPoint>
+        <IntroPoint>Some selling point here.</IntroPoint>
+        <IntroPoint>Some selling point here.</IntroPoint>
       </div>
       <div className="footer">
         Read our <a href="https://docs.daily.co/">documentation</a>
