@@ -19,7 +19,7 @@ export const Header = () => {
   return useMemo(
     () => (
       <header className="room-header">
-        {config.exp && <ExpiryTimer expiry={config.exp * 1000} />}
+        {config.exp !== 0 && <ExpiryTimer expiry={config.exp * 1000} />}
         {localParticipant?.owner && (
           <div className="text-right">
             {isTranscriptionEnabled ? (

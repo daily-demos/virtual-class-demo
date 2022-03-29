@@ -10,16 +10,40 @@ const AppStateContext = createContext(null);
 
 export const AppStateProvider = ({ children }) => {
   const [board, setBoard] = useState(null);
+  const [isHandRaised, setIsHandRaised] = useState(false);
+
   const { sharedState, setSharedState } = useSharedState({
     initialValues: {
       isBoardActive: false,
       allowToTalk: true,
       boardId: null,
+      handRaisedParticipants: [],
     }
   });
 
   const daily = useDaily();
   const localParticipant = useLocalParticipant();
+
+  const onHandRaise = useCallback((raiseHand) => {
+    const sessionId = localParticipant?.session_id;
+    if (raiseHand) {
+      setSharedState(sharedState => {
+        return {
+          ...sharedState,
+          handRaisedParticipants:
+            [...new Set(sharedState.handRaisedParticipants).add(sessionId)],
+        }
+      });
+    } else {
+      setSharedState(sharedState => {
+        return {
+          ...sharedState,
+          handRaisedParticipants:
+            [...sharedState.handRaisedParticipants].filter(p => p !== sessionId),
+        }
+      });
+    }
+  }, []);
 
   const createBoard = useCallback((boardId = null) => {
     const zwb = Zwibbler.create('#whiteboard');
@@ -58,6 +82,13 @@ export const AppStateProvider = ({ children }) => {
     });
   }, [setSharedState]);
 
+  const raiseHand = useCallback(() => {
+    setIsHandRaised(raise => {
+      onHandRaise(!raise);
+      return !raise;
+    });
+  }, [localParticipant]);
+
   const isAllowedToTalk = useMemo(() => {
     if (!sharedState.allowToTalk) return !!localParticipant?.owner;
     return true;
@@ -85,6 +116,9 @@ export const AppStateProvider = ({ children }) => {
         isAllowedToTalk,
         allowToTalk: sharedState.allowToTalk,
         setAllowToTalk,
+        isHandRaised,
+        raiseHand,
+        handRaisedParticipants: sharedState.handRaisedParticipants,
       }}
     >
       {children}

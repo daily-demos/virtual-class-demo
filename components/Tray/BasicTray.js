@@ -18,6 +18,7 @@ import { ReactComponent as IconPen } from '../../icons/pen-md.svg';
 import { ReactComponent as IconPeople } from '../../icons/people-md.svg';
 import { ReactComponent as IconSettings } from '../../icons/settings-md.svg';
 import { ReactComponent as IconShare } from '../../icons/share-sm.svg';
+import { ReactComponent as IconHand } from '../../icons/hand-sm.svg';
 import { useDevices, useLocalParticipant, useScreenShare } from '@daily-co/daily-react-hooks';
 import { Tray, TrayButton } from './Tray';
 
@@ -28,7 +29,14 @@ export const BasicTray = () => {
   const { openModal, toggleAside } = useUIState();
   const { hasCamError, hasMicError } = useDevices();
   const { hasNewMessages } = useChat();
-  const { isBoardActive, createBoard, deleteBoard, isAllowedToTalk } = useAppState();
+  const {
+    isBoardActive,
+    createBoard,
+    deleteBoard,
+    isAllowedToTalk,
+    isHandRaised,
+    raiseHand,
+  } = useAppState();
 
   const { isSharingScreen, screens, startScreenShare, stopScreenShare } = useScreenShare();
 
@@ -93,6 +101,15 @@ export const BasicTray = () => {
       >
         <IconChat />
       </TrayButton>
+      {!localParticipant?.owner && (
+        <TrayButton
+          label={isHandRaised ? 'Cancel': 'Hand'}
+          orange={isHandRaised}
+          onClick={raiseHand}
+        >
+          <IconHand />
+        </TrayButton>
+      )}
       <TrayButton label="People" onClick={() => toggleAside(PEOPLE_ASIDE)}>
         <IconPeople />
       </TrayButton>
