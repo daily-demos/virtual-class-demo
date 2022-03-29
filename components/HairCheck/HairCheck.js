@@ -73,7 +73,7 @@ export const HairCheck = () => {
     const { access } = daily.accessState();
     await daily.join();
 
-    // If we we're in the lobby, wait for the owner to let us in
+    // If we're in the lobby, wait for the owner to let us in
     if (access?.level === ACCESS_STATE_LOBBY) {
       setWaiting(true);
       const { granted } = await daily.requestAccess({
