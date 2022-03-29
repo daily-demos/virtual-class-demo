@@ -6,9 +6,11 @@ import NotConfigured from '../components/Prejoin/NotConfigured';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Daily from '../components/Prejoin/Daily';
+import Capsule from '../components/Capsule';
 
 export default function Index({
   isConfigured = false,
+  domain,
 }) {
   const router = useRouter();
   const [creating, setCreating] = useState(false);
@@ -38,6 +40,9 @@ export default function Index({
     <main>
       <Daily />
       <div className="intro">
+        <div className="domain">
+          <Capsule variant="gray">{domain}.daily.co</Capsule>
+        </div>
         {(() => {
           if (!isConfigured) return <NotConfigured />;
           return <Intro error={error} creating={creating} onCreate={createRoom} />;
@@ -49,7 +54,7 @@ export default function Index({
           height: 100vh;
           display: grid;
           grid-template-columns: 600px auto;
-          background: #E5E5E5;
+          background: var(--gray-wash);
         }
         .intro {
           display: grid;
@@ -58,6 +63,12 @@ export default function Index({
           height: 100%;
           width: 100%;
         }
+        .domain {
+          top: 20px;
+          right: 20px;
+          margin-left: auto;
+          position: absolute;
+        }
       `}</style>
     </main>
   );
@@ -65,6 +76,7 @@ export default function Index({
 
 Index.propTypes = {
   isConfigured: PropTypes.bool.isRequired,
+  domain: PropTypes.string.isRequired,
 };
 
 export async function getStaticProps() {

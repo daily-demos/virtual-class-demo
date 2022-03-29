@@ -25,7 +25,7 @@ export const Intro = ({
   return (
     <div className="intro">
       <div className="header">
-        <h2>Create your virtual class room</h2>
+        <h2 className="title">Create your virtual class room</h2>
         <p>
           Let’s configure the Daily meeting room for your class. We’ll set both a
           starting timestamp and a duration in order to figure the duration of the class.
@@ -82,7 +82,12 @@ export const Intro = ({
         text-align: center;
       }
       .header p {
-        font-weight: 400;
+        font-size: 18px;
+        font-weight: var(--weight-regular);
+      }
+      .title {
+        font-size: 32px;
+        font-weight: var(--weight-extra-bold);
       }
       .loading {
         display: flex;

@@ -37,6 +37,7 @@ export const GlobalStyle = () => (
       --weight-regular: 400;
       --weight-medium: 500;
       --weight-bold: 600;
+      --weight-extra-bold: 900;
 
       --radius-xs: 6px;
       --radius-sm: 9px;
