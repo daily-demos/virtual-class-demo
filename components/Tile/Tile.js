@@ -53,8 +53,8 @@ export const Tile = memo(
 
       const handleResize = () => {
         if (!video) return;
-        const width = video?.videoWidth;
-        const height = video?.videoHeight;
+        const width = video.videoWidth;
+        const height = video.videoHeight;
         if (width && height) {
           // Return the video's aspect ratio to the parent's handler
           onVideoResize(width / height);
@@ -62,9 +62,9 @@ export const Tile = memo(
       };
 
       handleResize();
-      video?.addEventListener('resize', handleResize);
+      video.addEventListener('resize', handleResize);
 
-      return () => video?.removeEventListener('resize', handleResize);
+      return () => video.removeEventListener('resize', handleResize);
     }, [onVideoResize, videoEl, participant]);
 
     useEffect(() => {
@@ -95,7 +95,7 @@ export const Tile = memo(
             setTileAspectRatio(trackRatio);
             return;
           }
-          if (!video) return;
+
           const { videoHeight, videoWidth } = video;
           if (videoWidth && videoHeight) {
             const aspectRatio = videoWidth / videoHeight;
@@ -126,7 +126,7 @@ export const Tile = memo(
         if (frame) cancelAnimationFrame(frame);
         frame = requestAnimationFrame(() => {
           if (!tile) return;
-          const dimensions = tile?.getBoundingClientRect();
+          const dimensions = tile.getBoundingClientRect();
           const { width } = dimensions;
           setTileWidth(width);
         });

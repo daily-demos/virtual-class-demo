@@ -4,8 +4,8 @@ import VideoContainer from '../VideoContainer/VideoContainer';
 import { useAppState } from '../../contexts/AppStateProvider';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useTranscription } from '../../contexts/TranscriptionProvider';
-import { Screens } from '../SpeakerView/Screens';
-import { SpeakerTile } from '../SpeakerView/SpeakerTile';
+import { Screens } from '../SpeakerView';
+import { SpeakerTile } from '../SpeakerTile';
 import { Container } from './Container';
 import Header from './Header';
 import VideoGrid from './VideoGrid';
@@ -36,14 +36,14 @@ export const Room = () => {
   }, [hasScreenshares, localParticipant, orderedParticipantIds]);
 
   const otherItems = useMemo(() => {
-    if (orderedParticipantIds.length > 1) {
+    if (orderedParticipantIds.length > 1 || isBoardActive) {
       return orderedParticipantIds.slice(hasScreenshares ? 1 : 0);
     }
     return [];
   }, [hasScreenshares, orderedParticipantIds]);
 
   const isActiveSpeakerView = useMemo(() => {
-    if (hasScreenshares || !localParticipant?.owner || isBoardActive) return true;
+    return hasScreenshares || !localParticipant?.owner || isBoardActive;
   }, [hasScreenshares, isBoardActive, localParticipant?.owner]);
 
   return (

@@ -119,9 +119,9 @@ export const ParticipantBar = ({
 
       const { height: tileHeight } = activeTile.getBoundingClientRect();
       const othersVisibleHeight =
-        scrollEl?.clientHeight - othersRef.current?.offsetTop;
+        scrollEl.clientHeight - othersRef.current?.offsetTop;
 
-      const scrolledOffsetTop = activeTile.offsetTop - scrollEl?.scrollTop;
+      const scrolledOffsetTop = activeTile.offsetTop - scrollEl.scrollTop;
 
       // Ignore when speaker is already visible (< 50% cut off)
       if (
@@ -136,7 +136,7 @@ export const ParticipantBar = ({
     const throttledHandler = throttle(maybePromoteActiveSpeaker, 100);
     scrollEl.addEventListener('scroll', throttledHandler);
     return () => {
-      scrollEl?.removeEventListener('scroll', throttledHandler);
+      scrollEl.removeEventListener('scroll', throttledHandler);
     };
   }, [
     activeSpeakerId,

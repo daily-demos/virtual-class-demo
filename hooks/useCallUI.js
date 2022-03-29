@@ -50,9 +50,9 @@ export const useCallUI = ({
         );
       case CALL_STATE_NOT_BEFORE:
         return (
-          <MessageCard error header="Cannot join before owner">
+          <MessageCard error header="Cannot join before the start time">
             This room has `nbf` set, meaning you cannot join the call before the
-            owner
+            start time
           </MessageCard>
         );
       case CALL_STATE_EXPIRED:
