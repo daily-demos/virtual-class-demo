@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader } from '../Card';
 
 export const NotConfigured = () => (
   <Card>
-    <CardHeader>Environmental variables not set</CardHeader>
+    <CardHeader>Environment variables not set</CardHeader>
     <CardBody>
       <p>
         Please ensure you have set both the <code>DAILY_API_KEY</code> and{' '}
