@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../Button';
 import { Card, CardBody, CardFooter } from '../Card';
 import Well from '../Well';
@@ -13,8 +13,14 @@ export const Intro = ({
   creating,
   onCreate,
 }) => {
-  const [startTime, setStartTime] = useState();
+  const [startTime, setStartTime] = useState(null);
   const [duration, setDuration] = useState("30");
+
+  useEffect(() => {
+    const date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000);
+    const isoString = date.toISOString();
+    setStartTime(isoString.substring(0, (isoString.indexOf("T")|0) + 6|0));
+  }, []);
 
   return (
     <div className="intro">
