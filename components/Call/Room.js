@@ -13,8 +13,12 @@ import VideoGrid from './VideoGrid';
 const SIDEBAR_WIDTH = 186;
 
 export const Room = () => {
-  const { currentSpeakerId, localParticipant, screens, orderedParticipantIds } =
-    useParticipants();
+  const {
+    currentSpeakerId,
+    localParticipant,
+    screens,
+    orderedParticipantIds,
+  } = useParticipants();
   const { isBoardActive } = useAppState();
   const { isTranscribing, transcriptionHistory } = useTranscription();
   const activeRef = useRef();

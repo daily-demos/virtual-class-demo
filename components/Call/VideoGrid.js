@@ -3,6 +3,9 @@ import Tile from '../Tile';
 import { DEFAULT_ASPECT_RATIO } from '../../constants';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useDeepCompareMemo } from 'use-deep-compare';
+import { Card, CardBody, CardHeader } from '../Card';
+import { TextInput } from '../Input';
+import Button from '../Button';
 
 /**
  * Basic unpaginated video tile grid, scaled by aspect ratio
@@ -33,7 +36,7 @@ export const VideoGrid = React.memo(
       const handleResize = () => {
         if (frame) cancelAnimationFrame(frame);
         frame = requestAnimationFrame(() => {
-          const dims = containerRef.current.getBoundingClientRect();
+          const dims = containerRef.current?.getBoundingClientRect();
           setDimensions({
             width: Math.floor(dims.width),
             height: Math.floor(dims.height),
@@ -89,7 +92,7 @@ export const VideoGrid = React.memo(
       [localParticipant.session_id, orderedParticipantIds]
     );
 
-    // Memoize our tile list to avoid unnecassary re-renders
+    // Memoize our tile list to avoid unnecessary re-renders
     const tiles = useDeepCompareMemo(
       () =>
         visibleParticipants.map((p) => (
@@ -110,6 +113,32 @@ export const VideoGrid = React.memo(
     return (
       <div className="video-grid" ref={containerRef}>
         <div className="tiles">{tiles}</div>
+        {participantCount < 2 && (
+          <div className="tiles">
+            <div className="invite-others" style={{ maxHeight: tileHeight }}>
+              <Card variant="dark">
+                <CardHeader>Waiting for others to join?</CardHeader>
+                <CardBody>
+                  <h3>Copy the link and invite them to the call!</h3>
+                  <div className="link">
+                    <TextInput
+                      variant="border"
+                      value={window.location.href}
+                      disabled
+                    />
+                    <Button
+                      onClick={() =>
+                        navigator.clipboard.writeText(window.location.href)
+                      }
+                    >
+                      Copy link
+                    </Button>
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+          </div>
+        )}
         <style jsx>{`
           .video-grid {
             align-items: center;
@@ -119,7 +148,6 @@ export const VideoGrid = React.memo(
             position: relative;
             width: 100%;
           }
-
           .video-grid .tiles {
             align-items: center;
             display: flex;
@@ -129,6 +157,20 @@ export const VideoGrid = React.memo(
             margin: auto;
             overflow: hidden;
             width: 100%;
+          }
+          .video-grid .invite-others {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            text-align: center;
+            padding: var(--spacing-xxs);
+          }
+          .video-grid .invite-others .link {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
           }
         `}</style>
       </div>

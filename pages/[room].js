@@ -13,7 +13,6 @@ import App from '../components/App';
 import IntroRole from '../components/Prejoin/IntroRole';
 import { useRouter } from 'next/router';
 import Daily from '../components/Prejoin/Daily';
-import NotConfigured from '../components/Prejoin/NotConfigured';
 
 
 export default function Room({

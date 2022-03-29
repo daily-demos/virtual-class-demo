@@ -10,7 +10,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useState,
+  useState
 } from 'react';
 import { DailyProvider } from '@daily-co/daily-react-hooks';
 import { useRouter } from 'next/router';
