@@ -23,7 +23,10 @@ export default function Index({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ nbf: startTime, expiryMinutes: Number(duration) }),
+      body: JSON.stringify({
+        nbf: startTime,
+        expiryMinutes: Number(duration)
+      }),
     });
     const resJson = await res.json();
 
