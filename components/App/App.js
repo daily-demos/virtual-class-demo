@@ -21,7 +21,6 @@ export const App = ({ customComponentForState }) => {
   return useMemo(
     () => (
       <>
-        {roomExp && <ExpiryTimer expiry={roomExp} />}
         <div className="app">
           {componentForState()}
           <Modals />

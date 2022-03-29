@@ -1,31 +1,25 @@
 import React, { useMemo } from 'react';
-import Button from '../Button';
 import IconButton from '../IconButton/IconButton';
 import { useAppState } from '../../contexts/AppStateProvider';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useTranscription } from '../../contexts/TranscriptionProvider';
-import { ReactComponent as IconInvite } from '../../icons/invite-md.svg';
 import { ReactComponent as IconTalk } from '../../icons/talk-sm.svg';
 import { ReactComponent as IconTranscription } from '../../icons/transcription-sm.svg';
 import { useUIState } from '../../contexts/UIStateProvider';
-import { INVITE_OTHERS_MODAL } from './InviteOthersModal';
+import ExpiryTimer from '../ExpiryTimer';
+import { useRoom } from '@daily-co/daily-react-hooks';
 
 export const Header = () => {
   const { allowToTalk, setAllowToTalk } = useAppState();
   const { localParticipant } = useParticipants();
   const { isTranscribing, toggleTranscription, isTranscriptionEnabled } = useTranscription();
   const { openModal } = useUIState();
+  const { config } = useRoom();
 
   return useMemo(
     () => (
       <header className="room-header">
-        <Button
-          variant="dark"
-          IconBefore={IconInvite}
-          onClick={() => openModal(INVITE_OTHERS_MODAL)}
-        >
-          Invite to class
-        </Button>
+        {config.exp && <ExpiryTimer expiry={config.exp * 1000} />}
         {localParticipant?.owner && (
           <div className="text-right">
             {isTranscriptionEnabled ? (
@@ -76,7 +70,8 @@ export const Header = () => {
       localParticipant?.owner,
       setAllowToTalk,
       toggleTranscription,
-      openModal
+      openModal,
+      config.exp
     ]
   );
 };
