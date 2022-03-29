@@ -16,7 +16,7 @@
 - Render UI based on the call state
 - Handle media and call errors
 - Obtain call access token via Daily REST API
-- Handle preauthentication, knock for access and auto join
+- Handle pre-authentication, knock for access and auto-join
 
 Please note: this demo is not currently mobile optimised
 
