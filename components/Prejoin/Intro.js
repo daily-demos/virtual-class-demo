@@ -34,7 +34,7 @@ export const Intro = ({
       <Card>
         {error && (
           <Well variant="error">
-            Failed to create room <p>{error}</p>
+            Failed to create room, {error}
           </Well>
         )}
         {!creating ? (
@@ -67,7 +67,7 @@ export const Intro = ({
               </Button>
             </CardFooter>
           </form>
-        ): (
+        ): !error && (
           <div className="loading">
             <ReactLoading type="spokes" color="#7B848F" width={25} height={20} />
             <p>Creating room...</p>

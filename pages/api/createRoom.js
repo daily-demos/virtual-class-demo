@@ -13,8 +13,8 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         properties: {
           enable_prejoin_ui: true,
-          nbf: Math.round(new Date(nbf) / 1000),
-          exp: Math.round(new Date(nbf) / 1000) + (expiryMinutes || 5) * 60, // expire in x minutes
+          nbf: Math.floor(new Date(nbf).getTime() / 1000),
+          exp: Math.floor(new Date(nbf).getTime() / 1000) + (expiryMinutes || 5) * 60, // expire in x minutes
           eject_at_room_exp: true,
           ...rest,
         },
