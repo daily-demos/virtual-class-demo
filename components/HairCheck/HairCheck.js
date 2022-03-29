@@ -66,7 +66,7 @@ export const HairCheck = () => {
     // Disable join controls
     setJoining(true);
 
-    // Set the local participants name
+    // Set the local participant's name
     await daily.setUserName(userName);
 
     // Async request access (this will block until the call owner responds to the knock)
