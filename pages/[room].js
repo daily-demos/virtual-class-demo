@@ -13,6 +13,7 @@ import App from '../components/App';
 import IntroRole from '../components/Prejoin/IntroRole';
 import { useRouter } from 'next/router';
 import Daily from '../components/Prejoin/Daily';
+import Capsule from '../components/Capsule';
 
 
 export default function Room({
@@ -62,6 +63,9 @@ export default function Room({
       <main>
         <Daily />
         <div className="intro">
+          <div className="domain">
+            <Capsule variant="gray">{domain}.daily.co</Capsule>
+          </div>
           <IntroRole
             room={room}
             error={tokenError}
@@ -77,7 +81,7 @@ export default function Room({
           height: 100vh;
           display: grid;
           grid-template-columns: 600px auto;
-          background: #E5E5E5;
+          background: var(--gray-wash);
         }
         .intro {
           display: grid;
@@ -85,6 +89,12 @@ export default function Room({
           justify-content: center;
           height: 100%;
           width: 100%;
+        }
+        .domain {
+          top: 20px;
+          right: 20px;
+          margin-left: auto;
+          position: absolute;
         }
       `}</style>
       </main>

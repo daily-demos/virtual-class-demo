@@ -39,13 +39,17 @@ export const Capsule = ({ children, variant }) => (
         background-color: #E2FBFD;
         color: #00C9DF;
       }
+      .capsule.gray {
+        background-color: #E6EAEF;
+        color: #6B7785;
+      }
     `}</style>
   </span>
 );
 
 Capsule.propTypes = {
   children: PropTypes.node,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info', 'orange', 'blue']),
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info', 'orange', 'blue', 'gray']),
 };
 
 export default Capsule;
