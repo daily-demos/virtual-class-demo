@@ -11,6 +11,8 @@ import PropTypes from 'prop-types';
 import { DEFAULT_ASPECT_RATIO } from '../../constants';
 import { Video } from './Video';
 import { ReactComponent as Avatar } from './avatar.svg';
+import { ReactComponent as IconHand } from '../../icons/raise-hand-sm.svg';
+import { useAppState } from '../../contexts/AppStateProvider';
 
 const SM_TILE_MAX_WIDTH = 300;
 
@@ -28,6 +30,7 @@ export const Tile = memo(
     onVideoResize,
     ...props
   }) => {
+    const { handRaisedParticipants } = useAppState();
     const videoState = useMediaTrack(
       sessionId,
       isScreen ? 'screenVideo' : 'video'
@@ -157,7 +160,9 @@ export const Tile = memo(
         <div className="content">
           {showName && (
             <div className="name">
-              {!participant?.audio && !isScreen && <IconMicMute />}
+              {handRaisedParticipants.includes(participant?.session_id) ?
+                  <IconHand />
+                  : !participant?.audio && !isScreen && <IconMicMute />}
               {participant?.user_name}
             </div>
           )}
