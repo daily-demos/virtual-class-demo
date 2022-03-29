@@ -30,7 +30,7 @@ export const AudioTrack = ({ sessionId }) => {
     };
     audioTag.addEventListener('canplay', handleCanPlay);
     audioTag.addEventListener('play', handlePlay);
-    audioTag.srcObject = new MediaStream([audio?.track]);
+    audioTag.srcObject = new MediaStream([audio.track]);
 
     return () => {
       audioTag?.removeEventListener('canplay', handleCanPlay);
@@ -55,7 +55,7 @@ export const AudioTrack = ({ sessionId }) => {
     };
     screenAudioTag.addEventListener('canplay', handleCanPlay);
     screenAudioTag.addEventListener('play', handlePlay);
-    screenAudioTag.srcObject = new MediaStream([screenAudio?.track]);
+    screenAudioTag.srcObject = new MediaStream([screenAudio.track]);
 
     return () => {
       screenAudioTag?.removeEventListener('canplay', handleCanPlay);

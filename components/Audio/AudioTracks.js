@@ -51,7 +51,6 @@ export const AudioTracks = () => {
     if (disableAudio) return null;
     if (isSafari() || topology === 'peer') {
       return subscribedIds.map((sessionId) => (
-        // @ts-ignore
         <AudioTrack key={sessionId} sessionId={sessionId} />
       ));
     }

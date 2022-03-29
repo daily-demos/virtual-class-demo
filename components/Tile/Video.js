@@ -88,7 +88,7 @@ export const Video = forwardRef(
         video.removeEventListener('enterpictureinpicture', handleEnterPIP);
         video.removeEventListener('leavepictureinpicture', handleLeavePIP);
       };
-    }, [isChrome92, videoEl]);
+    }, [videoEl]);
 
     /**
      * Update srcObject.

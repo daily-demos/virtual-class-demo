@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import Tile from '../../Tile';
-import { DEFAULT_ASPECT_RATIO } from '../../../constants';
-import { useResize } from '../../../hooks/useResize';
-import defaultTheme from '../../../styles/defaultTheme';
+import Tile from '../Tile';
+import { DEFAULT_ASPECT_RATIO } from '../../constants';
+import { useResize } from '../../hooks/useResize';
+import defaultTheme from '../../styles/defaultTheme';
 import PropTypes from 'prop-types';
 
 const MAX_RATIO = DEFAULT_ASPECT_RATIO;

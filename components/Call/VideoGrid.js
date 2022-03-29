@@ -27,11 +27,13 @@ export const VideoGrid = React.memo(
 
     // Keep a reference to the width and height of the page, so we can repack
     useEffect(() => {
+      if (!containerRef.current) return;
+
       let frame;
       const handleResize = () => {
         if (frame) cancelAnimationFrame(frame);
         frame = requestAnimationFrame(() => {
-          const dims = containerRef.current?.getBoundingClientRect();
+          const dims = containerRef.current.getBoundingClientRect();
           setDimensions({
             width: Math.floor(dims.width),
             height: Math.floor(dims.height),
@@ -45,7 +47,7 @@ export const VideoGrid = React.memo(
         window.removeEventListener('resize', handleResize);
         window.removeEventListener('orientationchange', handleResize);
       };
-    }, []);
+    }, [containerRef]);
 
     const [tileWidth, tileHeight] = useMemo(() => {
       const width = Math.floor(dimensions.width);

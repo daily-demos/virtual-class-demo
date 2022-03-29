@@ -66,8 +66,10 @@ export const MediaDeviceProvider = ({ children }) => {
   }, [camState, setShowDeviceInUseModal, state]);
 
   const promptForAccess = useCallback(() => {
-    if (isSafari() || isIOSMobile()) {
-      if (!isIOSMobile() || isSafari(14)) {
+    if (!isSafari() || !isIOSMobile()) {
+      setShowUnblockPermissionsModal(true)
+    } else {
+      if (isSafari(14)) {
         let openModal = true;
         const openTimeout = setTimeout(() => {
           openModal = false;
@@ -81,8 +83,6 @@ export const MediaDeviceProvider = ({ children }) => {
       }
       daily.setLocalVideo(true);
       daily.setLocalAudio(true);
-    } else {
-      setShowUnblockPermissionsModal(true);
     }
   }, [daily, setShowUnblockPermissionsModal]);
 
