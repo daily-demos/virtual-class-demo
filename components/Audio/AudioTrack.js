@@ -70,7 +70,7 @@ export const AudioTrack = ({ sessionId }) => {
        * Otherwise audio might not play, when the call is backgrounded.
        * Reserving an audio tag for screen shares with audio makes sure, that
        * screen share audio can play anytime a screenshare starts, independent of
-       * wether the call is backgrounded or not.
+       * whether the call is backgrounded or not.
        */}
       <audio autoPlay playsInline ref={audioEl} />
       <audio autoPlay playsInline ref={screenAudioEl} />
