@@ -32,7 +32,7 @@ export const IntroRole = ({
               Failed to obtain token <p>{error}</p>
             </Well>
           )}
-          <div className="item">
+          <div>
             <Capsule variant="orange">Teacher Role</Capsule>
             <p>
               Control the flow of the class, moderate participants and activate
@@ -50,7 +50,7 @@ export const IntroRole = ({
 
           <div className="divider" />
 
-          <div className="item">
+          <div>
             <Capsule variant="blue">Student Role</Capsule>
             <p>
               Take part in the class as a student. Students can only talk when
@@ -68,7 +68,7 @@ export const IntroRole = ({
 
           <div className="divider" />
 
-          <div className="item">
+          <div>
             <Field label="Share student invite link:">
               <TextInput
                 value={typeof window !== 'undefined' ? window.location.href: null}
@@ -84,17 +84,20 @@ export const IntroRole = ({
       }
       .header {
         text-align: center;
+        margin-bottom: var(--spacing-md);
+      }
+      .header h2 {
+        font-size: 32px;
+        color: var(--text-darkest);
+        font-weight: var(--weight-extra-bold);
       }
       .header p {
-        color: var(--gray-dark);
-        font-weight: 400;
-      }
-      .item {
-        margin: 12px 0;
+        color: #6B7785;
+        font-weight: var(--weight-regular);
       }
       .divider {
         background: var(--gray-light);
-        margin: 0 var(--spacing-xxs);
+        margin: var(--spacing-md) 0;
         height: 1px;
       }
     `}</style>

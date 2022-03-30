@@ -80,10 +80,12 @@ export const Intro = ({
       }
       .header {
         text-align: center;
+        margin-bottom: var(--spacing-md);
       }
       .header p {
         font-size: 18px;
         font-weight: var(--weight-regular);
+        color: #6B7785;
       }
       .title {
         font-size: 32px;
