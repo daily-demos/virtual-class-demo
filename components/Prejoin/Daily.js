@@ -25,7 +25,9 @@ const IntroPoint = ({ children }) => {
 const Daily = () => {
   return (
     <div className="logo">
-      <Image src="/assets/daily-logo-dark.svg" alt="Daily Logo" width="140px" height="52px" />
+      <a href="https://daily.co">
+        <Image src="/assets/daily-logo-dark.svg" alt="Daily Logo" width="140px" height="52px" />
+      </a>
       <div className="content">
         <IntroPoint>Some selling point here.</IntroPoint>
         <IntroPoint>Some selling point here.</IntroPoint>
