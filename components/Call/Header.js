@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import IconButton from '../IconButton/IconButton';
+import { IconButton } from '../IconButton';
 import { useAppState } from '../../contexts/AppStateProvider';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useTranscription } from '../../contexts/TranscriptionProvider';
@@ -36,7 +36,12 @@ export const Header = () => {
                 onClick={() => window.open('https://docs.daily.co/reference/daily-js/events/transcription-events#main')}
               />
             )}
-            <IconButton label="Allow students to talk" Icon={IconTalk} isActive={allowToTalk} onClick={setAllowToTalk} />
+            <IconButton
+              label="Allow students to talk"
+              Icon={IconTalk}
+              isActive={allowToTalk}
+              onClick={setAllowToTalk}
+            />
           </div>
         )}
         <style jsx>{`
