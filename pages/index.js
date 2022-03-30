@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Daily from '../components/Prejoin/Daily';
 import Capsule from '../components/Capsule';
+import moment from 'moment';
 
 export default function Index({
   isConfigured = false,
@@ -24,7 +25,7 @@ export default function Index({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        nbf: startTime,
+        nbf: moment(startTime).format(),
         expiryMinutes: Number(duration)
       }),
     });
