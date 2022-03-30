@@ -4,7 +4,7 @@ import { Card, CardBody, CardFooter } from '../Card';
 import Well from '../Well';
 import { ReactComponent as IconArrowRight } from '../../icons/arrow-right-md.svg';
 import PropTypes from 'prop-types';
-import { SelectInput, TextInput } from '../Input';
+import { BooleanInput, SelectInput, TextInput } from '../Input';
 import Field from '../Field';
 import ReactLoading from 'react-loading';
 
@@ -15,12 +15,23 @@ export const Intro = ({
 }) => {
   const [startTime, setStartTime] = useState('');
   const [duration, setDuration] = useState("30");
+  const [isTranscriptionEnabled, setIsTranscriptionEnabled] = useState(false);
 
   useEffect(() => {
     const date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000);
     const isoString = date.toISOString();
     setStartTime(isoString.substring(0, (isoString.indexOf("T")|0) + 6|0));
   }, []);
+
+  useEffect(() => {
+    const getTranscriptionStatus = async () => {
+      const res = await fetch('/api/transcription');
+      const resJson = await res.json();
+      setIsTranscriptionEnabled(resJson?.isTranscriptionEnabled);
+    };
+
+    getTranscriptionStatus();
+  });
 
   return (
     <div className="intro">
@@ -60,6 +71,10 @@ export const Intro = ({
                   <option value="60">60 minutes</option>
                 </SelectInput>
               </Field>
+              <Field label="Transcribe this meeting (show subtitles)">
+                <div className="subtitle">Please note that partner fees may apply</div>
+                <BooleanInput disabled={!isTranscriptionEnabled} />
+              </Field>
             </CardBody>
             <CardFooter divider>
               <Button disabled={creating} type="submit" IconAfter={IconArrowRight}>
@@ -90,6 +105,13 @@ export const Intro = ({
       .title {
         font-size: 32px;
         font-weight: var(--weight-extra-bold);
+      }
+      .subtitle {
+        font-size: 14px;
+        font-weight: var(--weight-regular);
+        line-height: 100%;
+        color: #626262;
+        margin-bottom: var(--spacing-xxs);
       }
       .loading {
         display: flex;

@@ -25,7 +25,10 @@ export const AppStateProvider = ({ children }) => {
   const localParticipant = useLocalParticipant();
 
   const onHandRaise = useCallback((raiseHand) => {
-    const sessionId = localParticipant?.session_id;
+    if (!localParticipant?.session_id) return;
+
+    const sessionId = localParticipant.session_id;
+
     if (raiseHand) {
       setSharedState(sharedState => {
         return {
@@ -43,7 +46,12 @@ export const AppStateProvider = ({ children }) => {
         }
       });
     }
-  }, []);
+  }, [localParticipant]);
+
+  const raiseHand = useCallback(() => {
+    onHandRaise(!isHandRaised);
+    setIsHandRaised(raise => !raise);
+  }, [isHandRaised]);
 
   const createBoard = useCallback((boardId = null) => {
     const zwb = Zwibbler.create('#whiteboard');
@@ -81,13 +89,6 @@ export const AppStateProvider = ({ children }) => {
       }
     });
   }, [setSharedState]);
-
-  const raiseHand = useCallback(() => {
-    setIsHandRaised(raise => {
-      onHandRaise(!raise);
-      return !raise;
-    });
-  }, [localParticipant]);
 
   const isAllowedToTalk = useMemo(() => {
     if (!sharedState.allowToTalk) return !!localParticipant?.owner;
