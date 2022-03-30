@@ -1,7 +1,5 @@
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    console.log(`Creating room on domain ${process.env.DAILY_DOMAIN}`);
-
     const options = {
       method: 'GET',
       headers: {
