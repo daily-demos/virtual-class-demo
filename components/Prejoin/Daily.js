@@ -4,13 +4,18 @@ import { ReactComponent as IconPoint } from '../../icons/point-sm.svg';
 
 const IntroPoint = ({ children }) => {
   return (
-    <div>
+    <div className="point">
       <IconPoint style={{ marginRight: '.5em' }} />
       <p>{children}</p>
       <style jsx>{`
-        * {
+        .point {
           display: flex;
           align-items: center;
+        }
+        .point p {
+          font-weight: var(--weight-regular);
+          font-size: 18px;
+          line-height: 100%;
         }
       `}</style>
     </div>
