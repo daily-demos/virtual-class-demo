@@ -48,12 +48,11 @@ export default function Index({ isConfigured = false, domain }) {
         <div className="domain">
           <Capsule variant="gray">{domain}.daily.co</Capsule>
         </div>
-        {(() => {
-          if (!isConfigured) return <NotConfigured />;
-          return (
-            <Intro error={error} creating={creating} onCreate={createRoom} />
-          );
-        })()}
+        {!isConfigured ? (
+          <NotConfigured />
+        ) : (
+          <Intro error={error} creating={creating} onCreate={createRoom} />
+        )}
       </div>
 
       <style jsx>{`

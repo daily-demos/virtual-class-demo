@@ -32,7 +32,7 @@ export const PollProvider = ({ children }) => {
   const sendAppMessage = useAppMessage({
     onAppMessage: useCallback(
       ev => {
-        const msg = ev?.data?.message
+        const msg = ev?.data?.message;
         const msgType = msg?.type;
         if (!msgType) return;
 
@@ -44,10 +44,7 @@ export const PollProvider = ({ children }) => {
             break;
           case 'selected-answer-poll':
             const newResults = results;
-            newResults[msg.answer] = [
-              ...newResults[msg.answer],
-              msg.name,
-            ];
+            newResults[msg.answer] = [...newResults[msg.answer], msg.name];
             setResults({ ...newResults });
             break;
           default:
