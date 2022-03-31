@@ -32,19 +32,21 @@ export const PollProvider = ({ children }) => {
   const sendAppMessage = useAppMessage({
     onAppMessage: useCallback(
       ev => {
-        if (!ev?.data?.message?.type) return;
+        const msg = ev?.data?.message
+        const msgType = message?.type;
+        if (!msgType) return;
 
-        switch (ev.data.message.type) {
+        switch (msgType) {
           case 'poll':
-            setQuestion(ev.data.message.question);
-            setOptions(ev.data.message.options);
+            setQuestion(msg.question);
+            setOptions(msg.options);
             openModal(localParticipant.owner ? POLL_RESULT_MODAL : POLL_MODAL);
             break;
           case 'selected-answer-poll':
             const newResults = results;
-            newResults[ev.data.message.answer] = [
-              ...newResults[ev.data.message.answer],
-              ev.data.message.name,
+            newResults[msg.answer] = [
+              ...newResults[msg.answer],
+              msg.name,
             ];
             setResults({ ...newResults });
             break;
