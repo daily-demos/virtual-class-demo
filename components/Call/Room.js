@@ -73,7 +73,7 @@ export const Room = () => {
               )}
             </>
           )}
-          {isTranscribing && (
+          {isTranscribing && transcriptionHistory.length > 0 && (
             <div className="transcriptions">
               {transcriptionHistory[transcriptionHistory.length - 1]}
             </div>
