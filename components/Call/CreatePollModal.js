@@ -33,7 +33,7 @@ const PollOption = ({ option, index }) => {
   };
 
   return (
-    <div className="poll-option" key={index}>
+    <div className="poll-option">
       <div className="poll-answer">
         <TextInput
           prefix={(index + 1).toString()}
@@ -82,7 +82,7 @@ export const CreatePollModal = () => {
         </Field>
         <Field label="Answers">
           {options.map((option, index) => (
-            <PollOption option={option} index={index} />
+            <PollOption option={option} index={index} key={index} />
           ))}
         </Field>
         <div className="divider" />

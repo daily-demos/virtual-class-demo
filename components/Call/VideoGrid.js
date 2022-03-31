@@ -117,17 +117,19 @@ export const VideoGrid = React.memo(
         <div className="tiles">{tiles}</div>
         {participantCount < 2 && (
           <div className="tiles">
-            <div className="invite-others" style={{ maxHeight: tileHeight }}>
+            <div className="invite-others">
               <Card variant="dark">
                 <CardHeader>Waiting for others to join?</CardHeader>
                 <CardBody>
                   <h3>Copy the link and invite them to the call!</h3>
                   <div className="link">
-                    <TextInput
-                      variant="border"
-                      value={window.location.href}
-                      disabled
-                    />
+                    <div className="url">
+                      <TextInput
+                        variant="border"
+                        value={window.location.href}
+                        disabled
+                      />
+                    </div>
                     <Button
                       onClick={() =>
                         navigator.clipboard.writeText(window.location.href)
@@ -161,11 +163,8 @@ export const VideoGrid = React.memo(
             width: 100%;
           }
           .video-grid .invite-others {
-            width: 100%;
-            height: 100%;
-            margin: auto;
+            width: calc(100% - 1.5rem);
             text-align: center;
-            padding: var(--spacing-xxs);
           }
           .video-grid .invite-others .link {
             display: flex;
@@ -173,6 +172,9 @@ export const VideoGrid = React.memo(
             align-items: center;
             justify-content: center;
             text-align: center;
+          }
+          .video-grid .invite-others .link .url {
+            flex-grow: 0.5;
           }
         `}</style>
       </div>
