@@ -91,15 +91,16 @@ export const AppStateProvider = ({ children }) => {
   }, [setSharedState]);
 
   const isAllowedToTalk = useMemo(() => {
-    if (!sharedState.allowToTalk) return !!localParticipant?.owner;
-    return true;
+    return sharedState.allowToTalk || !!localParticipant?.owner;
   }, [localParticipant?.owner, sharedState.allowToTalk]);
 
   useEffect(() => {
     if (sharedState.allowToTalk) return;
 
     // just to mute all the participants when "allow to talk" is disabled.
-    if (!isAllowedToTalk) daily.setLocalAudio(false);
+    if (!isAllowedToTalk) {
+      daily.setLocalAudio(false);
+    }
   }, [daily, isAllowedToTalk, sharedState.allowToTalk]);
 
   useEffect(() => {
