@@ -8,11 +8,15 @@ import React, {
 } from 'react';
 import { useCallState } from './CallProvider';
 import PropTypes from 'prop-types';
-import { useRoom } from '@daily-co/daily-react-hooks';
+import { useDailyEvent, useRoom } from '@daily-co/daily-react-hooks';
+import { useRouter } from 'next/router';
 
 export const TranscriptionContext = createContext();
 
 export const TranscriptionProvider = ({ children }) => {
+  const router = useRouter();
+  const { room: roomURL } = router.query;
+
   const { callObject } = useCallState();
   const [transcriptionHistory, setTranscriptionHistory] = useState([]);
   const [isTranscribing, setIsTranscribing] = useState(false);
@@ -51,6 +55,22 @@ export const TranscriptionProvider = ({ children }) => {
   const isTranscriptionEnabled = useMemo(
     () => !!room?.domainConfig?.enable_transcription,
     [room?.domainConfig?.enable_transcription],
+  );
+
+  useDailyEvent(
+    'joined-meeting',
+    useCallback(() => {
+      if (router.isReady && router.query?.trans && !isTranscribing) {
+        toggleTranscription();
+        router.replace(`/${roomURL}`);
+      }
+    }, [
+      router.isReady,
+      router.query?.trans,
+      isTranscribing,
+      toggleTranscription,
+      roomURL,
+    ]),
   );
 
   useEffect(() => {

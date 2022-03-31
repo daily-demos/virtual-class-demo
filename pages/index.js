@@ -14,7 +14,7 @@ export default function Index({ isConfigured = false, domain }) {
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
 
-  const createRoom = async (startTime, duration) => {
+  const createRoom = async (startTime, duration, enableTranscription) => {
     setCreating(true);
     const res = await fetch('/api/createRoom', {
       method: 'POST',
@@ -32,7 +32,11 @@ export default function Index({ isConfigured = false, domain }) {
       setError(resJson?.error || true);
       return false;
     } else {
-      await router.push(`/${resJson.name}`);
+      await router.push(
+        enableTranscription
+          ? `/${resJson.name}?trans=true`
+          : `/${resJson.name}`,
+      );
     }
     setCreating(false);
   };
