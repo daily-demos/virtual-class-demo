@@ -2,7 +2,6 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -57,43 +56,24 @@ export const TranscriptionProvider = ({ children }) => {
     [room?.domainConfig?.enable_transcription],
   );
 
-  useDailyEvent(
-    'joined-meeting',
-    useCallback(() => {
-      if (router.isReady && router.query?.trans && !isTranscribing) {
-        toggleTranscription();
-        router.replace(`/${roomURL}`);
-      }
-    }, [
-      router.isReady,
-      router.query?.trans,
-      isTranscribing,
-      toggleTranscription,
-      roomURL,
-    ]),
-  );
-
-  useEffect(() => {
-    if (!callObject) {
-      return false;
+  const handleJoinedMeeting = useCallback(() => {
+    if (router.isReady && router.query?.trans && !isTranscribing) {
+      toggleTranscription();
+      router.replace(`/${roomURL}`);
     }
-
-    console.log(`💬 Transcription provider listening for app messages`);
-
-    callObject.on('app-message', handleNewMessage);
-
-    callObject.on('transcription-started', handleTranscriptionStarted);
-    callObject.on('transcription-stopped', handleTranscriptionStopped);
-    callObject.on('transcription-error', handleTranscriptionError);
-
-    return () => callObject.off('app-message', handleNewMessage);
-  }, [
-    callObject,
-    handleNewMessage,
-    handleTranscriptionStarted,
-    handleTranscriptionStopped,
-    handleTranscriptionError,
+  },[
+    router.isReady,
+    router.query?.trans,
+    isTranscribing,
+    toggleTranscription,
+    roomURL,
   ]);
+
+  useDailyEvent('joined-meeting', handleJoinedMeeting);
+  useDailyEvent('app-message', handleNewMessage);
+  useDailyEvent('transcription-started', handleTranscriptionStarted);
+  useDailyEvent('transcription-stopped', handleTranscriptionStopped);
+  useDailyEvent('transcription-error', handleTranscriptionError);
 
   return (
     <TranscriptionContext.Provider

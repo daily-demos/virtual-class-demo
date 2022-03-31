@@ -18,7 +18,8 @@ export const ChatProvider = ({ children }) => {
 
   const handleNewMessage = useCallback(
     e => {
-      if (e?.data?.message?.type) return;
+      if (e?.data?.message?.type || e.fromId === 'transcription') return;
+
       const participants = callObject.participants();
       const sender = participants[e.fromId].user_name ?? 'Guest';
 
