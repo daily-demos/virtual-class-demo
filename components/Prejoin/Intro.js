@@ -12,6 +12,7 @@ export const Intro = ({ error, creating, onCreate }) => {
   const [startTime, setStartTime] = useState('');
   const [duration, setDuration] = useState('30');
   const [isTranscriptionEnabled, setIsTranscriptionEnabled] = useState(false);
+  const [enableTrans, setEnableTrans] = useState(false);
 
   useEffect(() => {
     const date = new Date(
@@ -49,7 +50,7 @@ export const Intro = ({ error, creating, onCreate }) => {
           <form
             onSubmit={e => {
               e.preventDefault();
-              onCreate(startTime, duration);
+              onCreate(startTime, duration, enableTrans);
             }}
           >
             <CardBody>
@@ -75,7 +76,11 @@ export const Intro = ({ error, creating, onCreate }) => {
                 <div className="subtitle">
                   Please note that partner fees may apply
                 </div>
-                <BooleanInput disabled={!isTranscriptionEnabled} />
+                <BooleanInput
+                  value={enableTrans}
+                  onChange={e => setEnableTrans(e.target.checked)}
+                  disabled={!isTranscriptionEnabled}
+                />
               </Field>
             </CardBody>
             <CardFooter divider>
