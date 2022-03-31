@@ -14,7 +14,9 @@ export default async function handler(req, res) {
         properties: {
           enable_prejoin_ui: true,
           nbf: Math.floor(new Date(nbf).getTime() / 1000),
-          exp: Math.floor(new Date(nbf).getTime() / 1000) + (expiryMinutes || 5) * 60, // expire in x minutes
+          exp:
+            Math.floor(new Date(nbf).getTime() / 1000) +
+            (expiryMinutes || 5) * 60, // expire in x minutes
           eject_at_room_exp: true,
           ...rest,
         },
@@ -23,7 +25,7 @@ export default async function handler(req, res) {
 
     const dailyRes = await fetch(
       `${process.env.DAILY_REST_DOMAIN || 'https://api.daily.co/v1'}/rooms`,
-      options
+      options,
     );
 
     const { name, url, error } = await dailyRes.json();

@@ -68,7 +68,7 @@ export const VideoGrid = React.memo(
         const columnGap = columnCount - 1;
         let maxWidthPerTile = Math.floor((width - columnGap) / columnCount);
         let maxHeightPerTile = Math.floor(
-          maxWidthPerTile / DEFAULT_ASPECT_RATIO
+          maxWidthPerTile / DEFAULT_ASPECT_RATIO,
         );
         const rowCount = Math.ceil(tileCount / columnCount);
         const rowGap = rowCount - 1;
@@ -85,19 +85,19 @@ export const VideoGrid = React.memo(
           if (w * h < rw * rh) return [rw, rh];
           return [w, h];
         },
-        [0, 0]
+        [0, 0],
       );
     }, [dimensions.height, dimensions.width, participantCount]);
 
     const visibleParticipants = useMemo(
       () => [localParticipant.session_id, ...orderedParticipantIds],
-      [localParticipant.session_id, orderedParticipantIds]
+      [localParticipant.session_id, orderedParticipantIds],
     );
 
     // Memoize our tile list to avoid unnecessary re-renders
     const tiles = useDeepCompareMemo(
       () =>
-        visibleParticipants.map((p) => (
+        visibleParticipants.map(p => (
           <Tile
             sessionId={p}
             key={p}
@@ -105,7 +105,7 @@ export const VideoGrid = React.memo(
             style={{ maxWidth: tileWidth, maxHeight: tileHeight }}
           />
         )),
-      [tileWidth, tileHeight, visibleParticipants]
+      [tileWidth, tileHeight, visibleParticipants],
     );
 
     if (!visibleParticipants.length) {
@@ -178,7 +178,7 @@ export const VideoGrid = React.memo(
       </div>
     );
   },
-  () => true
+  () => true,
 );
 
 export default VideoGrid;

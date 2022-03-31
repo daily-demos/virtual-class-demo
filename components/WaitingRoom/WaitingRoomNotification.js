@@ -85,7 +85,7 @@ export const WaitingRoomNotification = () => {
 
     const handleWaitingParticipantAdded = () => {
       setShowNotification(
-        Object.keys(callObject.waitingParticipants()).length > 0
+        Object.keys(callObject.waitingParticipants()).length > 0,
       );
     };
 
@@ -93,7 +93,7 @@ export const WaitingRoomNotification = () => {
     return () => {
       callObject.off(
         'waiting-participant-added',
-        handleWaitingParticipantAdded
+        handleWaitingParticipantAdded,
       );
     };
   }, [callObject, showModal]);

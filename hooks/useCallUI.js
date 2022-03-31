@@ -11,7 +11,7 @@ import {
   CALL_STATE_NOT_BEFORE,
   CALL_STATE_NOT_FOUND,
   CALL_STATE_READY,
-  CALL_STATE_REDIRECTING
+  CALL_STATE_REDIRECTING,
 } from '../contexts/useCallMachine';
 import { useRouter } from 'next/router';
 import HairCheck from '../components/HairCheck';

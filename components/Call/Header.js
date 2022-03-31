@@ -12,7 +12,8 @@ import { useRoom } from '@daily-co/daily-react-hooks';
 export const Header = () => {
   const { allowToTalk, setAllowToTalk } = useAppState();
   const { localParticipant } = useParticipants();
-  const { isTranscribing, toggleTranscription, isTranscriptionEnabled } = useTranscription();
+  const { isTranscribing, toggleTranscription, isTranscriptionEnabled } =
+    useTranscription();
   const { openModal } = useUIState();
   const { config } = useRoom();
 
@@ -33,7 +34,11 @@ export const Header = () => {
               <IconButton
                 label="Transcription not supported on your domain"
                 Icon={IconTranscription}
-                onClick={() => window.open('https://docs.daily.co/reference/daily-js/events/transcription-events#main')}
+                onClick={() =>
+                  window.open(
+                    'https://docs.daily.co/reference/daily-js/events/transcription-events#main',
+                  )
+                }
               />
             )}
             <IconButton
@@ -55,7 +60,7 @@ export const Header = () => {
             align-items: center;
             width: 100%;
           }
-          
+
           .text-right {
             display: flex;
             flex: 0 0 auto;
@@ -76,8 +81,8 @@ export const Header = () => {
       setAllowToTalk,
       toggleTranscription,
       openModal,
-      config.exp
-    ]
+      config.exp,
+    ],
   );
 };
 

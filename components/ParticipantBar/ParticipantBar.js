@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Tile from '../Tile';
 import { DEFAULT_ASPECT_RATIO } from '../../constants';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
@@ -49,7 +44,7 @@ export const ParticipantBar = ({
   const hasScreenshares = useMemo(() => screens.length > 0, [screens]);
   const visibleOthers = useMemo(
     () => others.slice(range[0], range[1]),
-    [others, range]
+    [others, range],
   );
   const localParticipant = useLocalParticipant();
   const { threshold } = useNetwork();
@@ -64,7 +59,7 @@ export const ParticipantBar = ({
       fixed.length + others.length > 2 ||
       // Floating bar with more than 1 participant on shared screen
       (fixed.length > 1 && hasScreenshares),
-    [fixed.length, hasScreenshares, others.length]
+    [fixed.length, hasScreenshares, others.length],
   );
 
   useResize(() => {
@@ -86,7 +81,7 @@ export const ParticipantBar = ({
 
     const maybePromoteActiveSpeaker = () => {
       const fixedOtherId = fixed.find(
-        (id) => id !== localParticipant?.session_id
+        id => id !== localParticipant?.session_id,
       );
 
       // Promote speaker when participant bar isn't rendered & screen is shared
@@ -101,7 +96,7 @@ export const ParticipantBar = ({
 
       // Active speaker not rendered at all, promote immediately
       if (
-        visibleOthers.every((id) => id !== activeSpeakerId) &&
+        visibleOthers.every(id => id !== activeSpeakerId) &&
         activeSpeakerId !== localParticipant?.session_id
       ) {
         swapParticipantPosition(fixedOtherId, activeSpeakerId);
@@ -109,7 +104,7 @@ export const ParticipantBar = ({
       }
 
       const activeTile = othersRef.current?.querySelector(
-        `[id="${activeSpeakerId}"]`
+        `[id="${activeSpeakerId}"]`,
       );
       // Ignore when active speaker is not within "others"
       if (!activeTile) return;
@@ -150,7 +145,7 @@ export const ParticipantBar = ({
 
   const otherTiles = useMemo(
     () =>
-      visibleOthers.map((id) => (
+      visibleOthers.map(id => (
         <Tile
           aspectRatio={aspectRatio}
           key={id}
@@ -158,7 +153,7 @@ export const ParticipantBar = ({
           sessionId={id}
         />
       )),
-    [activeSpeakerId, aspectRatio, shouldRenderSpeakerBorder, visibleOthers]
+    [activeSpeakerId, aspectRatio, shouldRenderSpeakerBorder, visibleOthers],
   );
 
   if (fixed.length + others.length === 0 || fixed.length === 0) return null;

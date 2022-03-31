@@ -1,11 +1,6 @@
 import React from 'react';
 import Button from '../Button';
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from '../Card';
+import { Card, CardBody, CardFooter, CardHeader } from '../Card';
 import PropTypes from 'prop-types';
 
 export const MessageCard = ({

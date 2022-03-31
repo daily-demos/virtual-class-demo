@@ -46,7 +46,7 @@ export const ChatAside = () => {
   return (
     <Aside onClose={() => setShowAside(false)}>
       <div className="messages-container" ref={chatWindowRef}>
-        {chatHistory?.map((chatItem) => (
+        {chatHistory?.map(chatItem => (
           <div
             className={chatItem.isLocal ? 'message local' : 'message'}
             key={chatItem.id}
@@ -58,7 +58,7 @@ export const ChatAside = () => {
       </div>
       {showEmojis && (
         <div className="emojis">
-          {emojis.map((emoji) => (
+          {emojis.map(emoji => (
             <Button
               key={emoji}
               variant="gray"
@@ -70,11 +70,13 @@ export const ChatAside = () => {
           ))}
         </div>
       )}
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        sendMessage(newMessage);
-        setNewMessage('');
-      }}>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          sendMessage(newMessage);
+          setNewMessage('');
+        }}
+      >
         <footer className="chat-footer">
           <Button
             variant="gray"
@@ -87,7 +89,7 @@ export const ChatAside = () => {
             value={newMessage}
             placeholder="Type message here"
             variant="transparent"
-            onChange={(e) => setNewMessage(e.target.value)}
+            onChange={e => setNewMessage(e.target.value)}
           />
           <Button
             className="send-button"

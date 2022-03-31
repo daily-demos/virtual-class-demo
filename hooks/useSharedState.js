@@ -15,7 +15,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
 
   // handling the app-message event, to check if the state is being shared.
   const handleAppMessage = useCallback(
-    (event) => {
+    event => {
       // two types of events -
       // 1. Request shared state (request-shared-state)
       // 2. Set shared state (set-shared-state)
@@ -33,7 +33,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
                 value: stateRef.current,
               },
             },
-            '*'
+            '*',
           );
           break;
         // if we receive a set-shared-state message type then, we check the state timestamp with the local one and
@@ -53,7 +53,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
           break;
       }
     },
-    [stateRef, callObject]
+    [stateRef, callObject],
   );
 
   // whenever local user joins, we randomly pick a participant from the call and request him for the state.
@@ -67,9 +67,9 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
 
       if (participants.length > 1) {
         const remoteParticipants = participants.filter(
-          (p) =>
+          p =>
             !p.local &&
-            new Date(p.joined_at) < new Date(localParticipant.joined_at)
+            new Date(p.joined_at) < new Date(localParticipant.joined_at),
         );
 
         // avoid sending message if no remote participants are available
@@ -87,7 +87,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
               type: 'request-shared-state',
             },
           },
-          randomPeer.user_id
+          randomPeer.user_id,
         );
       } else {
         // if there is only one participant, don't try to request shared state again
@@ -120,8 +120,8 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
   // 1. shares the state with everyone in the call.
   // 2. set the state for the local user.
   const setSharedState = useCallback(
-    (values) => {
-      setState((state) => {
+    values => {
+      setState(state => {
         const currentValues =
           typeof values === 'function' ? values(state.sharedState) : values;
 
@@ -139,13 +139,13 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
                 value: stateObj,
               },
             },
-            '*'
+            '*',
           );
         }
         return stateObj;
       });
     },
-    [broadcast, callObject]
+    [broadcast, callObject],
   );
 
   // returns the sharedState and the setSharedState function

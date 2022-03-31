@@ -7,7 +7,8 @@
     "dev": "node_modules/.bin/next dev",
     "build": "node_modules/.bin/next build",
     "start": "node_modules/.bin/next start",
-    "lint": "node_modules/.bin/next lint"
+    "lint": "node_modules/.bin/next lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "dependencies": {
     "@daily-co/daily-js": "^0.23.0",
@@ -34,6 +35,7 @@
     "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-module-resolver": "^4.1.0",
     "next-compose-plugins": "^2.2.1",
-    "next-transpile-modules": "^8.0.0"
+    "next-transpile-modules": "^8.0.0",
+    "prettier": "^2.6.1"
   }
 }

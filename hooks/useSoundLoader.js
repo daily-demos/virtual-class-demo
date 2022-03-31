@@ -8,7 +8,7 @@ export const useSoundLoader = () => {
 
   const isJoinSoundMuted = useCallback(
     () => !enableJoinSound,
-    [enableJoinSound]
+    [enableJoinSound],
   );
 
   const joinSound = useSound(`assets/join.mp3`, isJoinSoundMuted);

@@ -67,7 +67,7 @@ export const MediaDeviceProvider = ({ children }) => {
 
   const promptForAccess = useCallback(() => {
     if (!isSafari() || !isIOSMobile()) {
-      setShowUnblockPermissionsModal(true)
+      setShowUnblockPermissionsModal(true);
     } else {
       if (isSafari(14)) {
         let openModal = true;

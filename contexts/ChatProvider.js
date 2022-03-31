@@ -17,23 +17,23 @@ export const ChatProvider = ({ children }) => {
   const [hasNewMessages, setHasNewMessages] = useState(false);
 
   const handleNewMessage = useCallback(
-    (e) => {
+    e => {
       if (e?.data?.message?.type) return;
       const participants = callObject.participants();
       const sender = participants[e.fromId].user_name ?? 'Guest';
 
-      setChatHistory((oldState) => [
+      setChatHistory(oldState => [
         ...oldState,
         { sender, message: e.data.message, id: nanoid() },
       ]);
 
       setHasNewMessages(true);
     },
-    [callObject]
+    [callObject],
   );
 
   const sendMessage = useCallback(
-    (message) => {
+    message => {
       if (!callObject) {
         return false;
       }
@@ -46,12 +46,12 @@ export const ChatProvider = ({ children }) => {
       const sender = callObject.participants().local.user_name ?? 'Guest';
 
       // Update local chat history
-      return setChatHistory((oldState) => [
+      return setChatHistory(oldState => [
         ...oldState,
         { sender, message, id: nanoid(), isLocal: true },
       ]);
     },
-    [callObject]
+    [callObject],
   );
 
   useEffect(() => {

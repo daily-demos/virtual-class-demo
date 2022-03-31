@@ -4,7 +4,11 @@ import Button from '../Button';
 export const IconButton = ({ Icon, label, isActive, onClick }) => (
   <>
     <span className="label">{label}</span>
-    <Button size="small-square" variant={isActive ? 'primary' : 'dark'} onClick={onClick}>
+    <Button
+      size="small-square"
+      variant={isActive ? 'primary' : 'dark'}
+      onClick={onClick}
+    >
       <Icon />
     </Button>
     <style jsx>{`

@@ -31,25 +31,19 @@ export const HairCheck = () => {
   const [joining, setJoining] = useState(false);
   const [denied, setDenied] = useState();
   const [userName, setUserName] = useState(
-    localStorage.getItem('PLUOT_PARTICIPANT_NAME') || ''
+    localStorage.getItem('PLUOT_PARTICIPANT_NAME') || '',
   );
   const localParticipant = useLocalParticipant();
 
-  const isCamMuted = useMemo(
-    () => {
-      const  videoState = localParticipant?.tracks?.video?.state;
-      return videoState === 'off' || videoState === 'blocked' || hasCamError
-    },
-    [hasCamError, localParticipant?.tracks?.video?.state]
-  );
+  const isCamMuted = useMemo(() => {
+    const videoState = localParticipant?.tracks?.video?.state;
+    return videoState === 'off' || videoState === 'blocked' || hasCamError;
+  }, [hasCamError, localParticipant?.tracks?.video?.state]);
 
-  const isMicMuted = useMemo(
-    () => {
-      const audioState = localParticipant?.tracks?.audio?.state;
-      return audioState === 'off' || audioState === 'blocked' || hasMicError
-    },
-    [hasCamError, localParticipant?.tracks?.audio?.state]
-  );
+  const isMicMuted = useMemo(() => {
+    const audioState = localParticipant?.tracks?.audio?.state;
+    return audioState === 'off' || audioState === 'blocked' || hasMicError;
+  }, [hasCamError, localParticipant?.tracks?.audio?.state]);
 
   const isLoading = camState === 'pending' || micState === 'pending';
   const deviceInUse = camState === 'in-use' || micState === 'in-use';
@@ -104,7 +98,7 @@ export const HairCheck = () => {
         showName={false}
       />
     ),
-    [localParticipant]
+    [localParticipant],
   );
 
   const camErrorVerbose = useMemo(() => {
@@ -161,7 +155,7 @@ export const HairCheck = () => {
           variant="dark"
           disabled={joining}
           value={userName}
-          onChange={(e) => setUserName(e.target.value)}
+          onChange={e => setUserName(e.target.value)}
         />
         <Button disabled={joining || userName.length < 3} type="submit">
           Join call
@@ -218,7 +212,7 @@ export const HairCheck = () => {
             {tileMemo}
           </div>
           <form
-            onSubmit={(e) => {
+            onSubmit={e => {
               e.preventDefault();
               joinCall(userName);
             }}

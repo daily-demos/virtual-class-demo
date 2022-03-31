@@ -22,7 +22,7 @@ export const Container = ({ children }) => {
         <Audio />
       </>
     ),
-    [isOwner]
+    [isOwner],
   );
 
   return (

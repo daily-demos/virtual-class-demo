@@ -1,4 +1,11 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useCallState } from './CallProvider';
 import PropTypes from 'prop-types';
 import { useRoom } from '@daily-co/daily-react-hooks';
@@ -12,17 +19,14 @@ export const TranscriptionProvider = ({ children }) => {
 
   const room = useRoom();
 
-  const handleNewMessage = useCallback(
-    (e) => {
-      if (e.fromId === 'transcription' && e.data?.is_final) {
-        setTranscriptionHistory((oldState) => [
-          ...oldState,
-          `${e.data.user_name}: ${e.data.text}`,
-        ]);
-      }
-    },
-    []
-  );
+  const handleNewMessage = useCallback(e => {
+    if (e.fromId === 'transcription' && e.data?.is_final) {
+      setTranscriptionHistory(oldState => [
+        ...oldState,
+        `${e.data.user_name}: ${e.data.text}`,
+      ]);
+    }
+  }, []);
 
   const handleTranscriptionStarted = useCallback(() => {
     console.log('💬 Transcription started');
@@ -44,9 +48,10 @@ export const TranscriptionProvider = ({ children }) => {
     else await callObject.startTranscription();
   }, [callObject, isTranscribing]);
 
- const isTranscriptionEnabled = useMemo(() =>
-   !!room?.domainConfig?.enable_transcription,
-   [room?.domainConfig?.enable_transcription]);
+  const isTranscriptionEnabled = useMemo(
+    () => !!room?.domainConfig?.enable_transcription,
+    [room?.domainConfig?.enable_transcription],
+  );
 
   useEffect(() => {
     if (!callObject) {
@@ -67,7 +72,7 @@ export const TranscriptionProvider = ({ children }) => {
     handleNewMessage,
     handleTranscriptionStarted,
     handleTranscriptionStopped,
-    handleTranscriptionError
+    handleTranscriptionError,
   ]);
 
   return (

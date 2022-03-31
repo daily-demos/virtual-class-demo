@@ -6,7 +6,11 @@ export default function RoomNotFound() {
   const router = useRouter();
   return (
     <div className="not-found">
-      <MessageCard error header="Room not found" onBack={() => router.push('/')}>
+      <MessageCard
+        error
+        header="Room not found"
+        onBack={() => router.push('/')}
+      >
         The room you are trying to join does not exist. Have you created the
         room using the Daily REST API or the dashboard?
       </MessageCard>

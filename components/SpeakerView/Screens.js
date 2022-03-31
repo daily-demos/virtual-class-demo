@@ -46,7 +46,7 @@ export const Screens = () => {
   return (
     <div ref={viewRef}>
       <>
-        {screens.map((s) => (
+        {screens.map(s => (
           <div
             className="tileWrapper"
             key={s.screenId}

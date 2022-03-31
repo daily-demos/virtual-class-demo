@@ -33,7 +33,7 @@ export const Tile = memo(
     const { handRaisedParticipants } = useAppState();
     const videoState = useMediaTrack(
       sessionId,
-      isScreen ? 'screenVideo' : 'video'
+      isScreen ? 'screenVideo' : 'video',
     );
 
     const videoEl = useRef(null);
@@ -160,9 +160,11 @@ export const Tile = memo(
         <div className="content">
           {showName && (
             <div className="name">
-              {handRaisedParticipants.includes(participant?.session_id) ?
-                  <IconHand />
-                  : !participant?.audio && !isScreen && <IconMicMute />}
+              {handRaisedParticipants.includes(participant?.session_id) ? (
+                <IconHand />
+              ) : (
+                !participant?.audio && !isScreen && <IconMicMute />
+              )}
               {participant?.user_name}
             </div>
           )}
@@ -267,7 +269,7 @@ export const Tile = memo(
         `}</style>
       </div>
     );
-  }
+  },
 );
 
 Tile.propTypes = {

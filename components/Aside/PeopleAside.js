@@ -106,14 +106,16 @@ export const PeopleAside = () => {
   const { participantIds, isOwner } = useParticipants();
 
   const muteAll = useCallback(
-    (deviceType) => {
+    deviceType => {
       if (!deviceType) {
-        console.error("missing device type to mute");
+        console.error('missing device type to mute');
         return;
       }
       const lcDeviceType = deviceType.toLowerCase();
-      if (lcDeviceType !== "audio" && lcDeviceType !== "video") {
-        console.error(`failed to recognize device type to mute (${deviceType})`)
+      if (lcDeviceType !== 'audio' && lcDeviceType !== 'video') {
+        console.error(
+          `failed to recognize device type to mute (${deviceType})`,
+        );
         return;
       }
       let updatedParticipantList = {};
@@ -130,7 +132,7 @@ export const PeopleAside = () => {
       // Update all participants at once
       callObject.updateParticipants(updatedParticipantList);
     },
-    [callObject]
+    [callObject],
   );
 
   const handleMuteAllAudio = () => muteAll('audio');
@@ -164,7 +166,7 @@ export const PeopleAside = () => {
           </div>
         )}
         <div className="rows">
-          {participantIds.map((p) => (
+          {participantIds.map(p => (
             <PersonRow sessionId={p} key={p} isOwner={isOwner} />
           ))}
         </div>

@@ -40,7 +40,7 @@ export const DeviceSelect = () => {
             },
           ];
         }
-        return cameras.map((cam) => ({
+        return cameras.map(cam => ({
           label:
             cam.state === 'in-use'
               ? `⚠️ ${cam.device.label || cam.device.deviceId}`
@@ -76,7 +76,7 @@ export const DeviceSelect = () => {
             },
           ];
         }
-        return microphones.map((mic) => ({
+        return microphones.map(mic => ({
           label:
             mic.state === 'in-use'
               ? `⚠️ ${mic.device.label || mic.device.deviceId}`
@@ -89,7 +89,7 @@ export const DeviceSelect = () => {
 
   const speakerOptions = useMemo(() => {
     if (speakers.length > 0) {
-      return speakers.map((speaker) => ({
+      return speakers.map(speaker => ({
         label: speaker.device.label || speaker.device.deviceId,
         selected: speaker.selected,
         value: speaker.device.deviceId,
@@ -110,7 +110,7 @@ export const DeviceSelect = () => {
       <Field label="Select camera:">
         <SelectInput
           disabled={!cameras.length}
-          onChange={(e) => setCamera(e.target.value)}
+          onChange={e => setCamera(e.target.value)}
         >
           {camOptions.map(({ label, selected, value }) => (
             <option key={`cam-${label}`} value={value} selected={selected}>
@@ -123,7 +123,7 @@ export const DeviceSelect = () => {
       <Field label="Select microphone:">
         <SelectInput
           disabled={!microphones.length}
-          onChange={(e) => setMicrophone(e.target.value)}
+          onChange={e => setMicrophone(e.target.value)}
         >
           {micOptions.map(({ label, selected, value }) => (
             <option key={`mic-${label}`} value={value} selected={selected}>
@@ -140,7 +140,7 @@ export const DeviceSelect = () => {
         <Field label="Select speakers:">
           <SelectInput
             disabled={!speakers.length}
-            onChange={(e) => setSpeaker(e.target.value)}
+            onChange={e => setSpeaker(e.target.value)}
           >
             {speakerOptions.map(({ label, selected, value }) => (
               <option

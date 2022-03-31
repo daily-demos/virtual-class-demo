@@ -9,10 +9,7 @@ import Daily from '../components/Prejoin/Daily';
 import Capsule from '../components/Capsule';
 import moment from 'moment';
 
-export default function Index({
-  isConfigured = false,
-  domain,
-}) {
+export default function Index({ isConfigured = false, domain }) {
   const router = useRouter();
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
@@ -26,7 +23,7 @@ export default function Index({
       },
       body: JSON.stringify({
         nbf: moment(startTime).format(),
-        expiryMinutes: Number(duration)
+        expiryMinutes: Number(duration),
       }),
     });
     const resJson = await res.json();
@@ -49,7 +46,9 @@ export default function Index({
         </div>
         {(() => {
           if (!isConfigured) return <NotConfigured />;
-          return <Intro error={error} creating={creating} onCreate={createRoom} />;
+          return (
+            <Intro error={error} creating={creating} onCreate={createRoom} />
+          );
         })()}
       </div>
 

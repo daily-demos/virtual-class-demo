@@ -19,7 +19,11 @@ import { ReactComponent as IconPeople } from '../../icons/people-md.svg';
 import { ReactComponent as IconSettings } from '../../icons/settings-md.svg';
 import { ReactComponent as IconShare } from '../../icons/share-sm.svg';
 import { ReactComponent as IconHand } from '../../icons/hand-sm.svg';
-import { useDevices, useLocalParticipant, useScreenShare } from '@daily-co/daily-react-hooks';
+import {
+  useDevices,
+  useLocalParticipant,
+  useScreenShare,
+} from '@daily-co/daily-react-hooks';
 import { Tray, TrayButton } from './Tray';
 
 const MAX_SCREEN_SHARES = 2;
@@ -38,32 +42,32 @@ export const BasicTray = () => {
     raiseHand,
   } = useAppState();
 
-  const { isSharingScreen, screens, startScreenShare, stopScreenShare } = useScreenShare();
+  const { isSharingScreen, screens, startScreenShare, stopScreenShare } =
+    useScreenShare();
 
   const localParticipant = useLocalParticipant();
 
   const isCamMuted = useMemo(
     () => !localParticipant?.video || hasCamError,
-    [hasCamError, localParticipant?.video]
+    [hasCamError, localParticipant?.video],
   );
 
   const isMicMuted = useMemo(
     () => !localParticipant?.audio || hasMicError,
-    [hasMicError, localParticipant?.audio]
+    [hasMicError, localParticipant?.audio],
   );
 
-  const toggleCamera = (newState) => {
+  const toggleCamera = newState => {
     if (!callObject) return false;
     return callObject.setLocalVideo(newState);
   };
 
-  const toggleMic = (newState) => {
+  const toggleMic = newState => {
     if (!callObject) return false;
     return callObject.setLocalAudio(newState);
   };
 
-  const toggleBoard = () =>
-    isBoardActive ? deleteBoard() : createBoard();
+  const toggleBoard = () => (isBoardActive ? deleteBoard() : createBoard());
 
   const toggleScreenShare = () =>
     isSharingScreen ? stopScreenShare() : startScreenShare();
@@ -103,7 +107,7 @@ export const BasicTray = () => {
       </TrayButton>
       {!localParticipant?.owner && (
         <TrayButton
-          label={isHandRaised ? 'Cancel': 'Hand'}
+          label={isHandRaised ? 'Cancel' : 'Hand'}
           orange={isHandRaised}
           onClick={raiseHand}
         >
@@ -114,17 +118,14 @@ export const BasicTray = () => {
         <IconPeople />
       </TrayButton>
       <TrayButton
-        label={isSharingScreen ? 'Stop': 'Share'}
+        label={isSharingScreen ? 'Stop' : 'Share'}
         orange={isSharingScreen}
         disabled={disabled}
         onClick={toggleScreenShare}
       >
         <IconShare />
       </TrayButton>
-      <TrayButton
-        label="Network"
-        onClick={() => toggleAside(NETWORK_ASIDE)}
-      >
+      <TrayButton label="Network" onClick={() => toggleAside(NETWORK_ASIDE)}>
         <IconNetwork />
       </TrayButton>
       <TrayButton label="Settings" onClick={() => openModal(DEVICE_MODAL)}>

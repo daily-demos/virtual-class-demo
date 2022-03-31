@@ -151,7 +151,7 @@ export const TextInput = forwardRef(
         <input type="text" onChange={onChange} ref={ref} {...rest} />
       </InputContainer>
     );
-  }
+  },
 );
 
 TextInput.propTypes = {
@@ -175,7 +175,7 @@ export const BooleanInput = ({
         type="checkbox"
         checked={checked}
         disabled={disabled}
-        onChange={(e) => {
+        onChange={e => {
           setChecked(!checked);
           onChange(e);
         }}

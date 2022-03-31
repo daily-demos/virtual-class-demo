@@ -29,7 +29,7 @@ export const SpeakerTile = ({ sessionId, screenRef }) => {
    * (e.g. mobile) to update how we crop videos. Otherwise, use landscape
    * defaults.
    */
-  const handleNativeAspectRatio = (r) => {
+  const handleNativeAspectRatio = r => {
     const isPortrait = r < 1;
     setNativeAspectRatio(isPortrait ? r : null);
   };
@@ -43,7 +43,7 @@ export const SpeakerTile = ({ sessionId, screenRef }) => {
           nativeAspectRatio || (ratio <= MIN_RATIO ? MIN_RATIO : MAX_RATIO),
         videoFit: ratio >= MAX_RATIO || nativeAspectRatio ? 'contain' : 'cover',
       }),
-    [nativeAspectRatio, ratio]
+    [nativeAspectRatio, ratio],
   );
 
   const style = {
