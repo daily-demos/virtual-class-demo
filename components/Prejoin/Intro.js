@@ -10,7 +10,9 @@ import ReactLoading from 'react-loading';
 import moment from 'moment';
 
 export const Intro = ({ error, creating, onCreate }) => {
-  const [startTime, setStartTime] = useState(moment().format(moment.HTML5_FMT.DATETIME_LOCAL));
+  const [startTime, setStartTime] = useState(
+    moment().format(moment.HTML5_FMT.DATETIME_LOCAL),
+  );
   const [duration, setDuration] = useState('30');
   const [isTranscriptionEnabled, setIsTranscriptionEnabled] = useState(false);
   const [enableTrans, setEnableTrans] = useState(false);
