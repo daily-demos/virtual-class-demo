@@ -19,18 +19,20 @@ import { ReactComponent as IconPeople } from '../../icons/people-md.svg';
 import { ReactComponent as IconSettings } from '../../icons/settings-md.svg';
 import { ReactComponent as IconShare } from '../../icons/share-sm.svg';
 import { ReactComponent as IconHand } from '../../icons/hand-sm.svg';
+import { ReactComponent as IconPoll } from '../../icons/poll-sm.svg';
 import {
   useDevices,
   useLocalParticipant,
   useScreenShare,
 } from '@daily-co/daily-react-hooks';
 import { Tray, TrayButton } from './Tray';
+import { CREATE_POLL_MODAL } from '../Call/CreatePollModal';
 
 const MAX_SCREEN_SHARES = 2;
 
 export const BasicTray = () => {
   const { callObject, leave } = useCallState();
-  const { openModal, toggleAside } = useUIState();
+  const { openModal, currentModals, toggleAside } = useUIState();
   const { hasCamError, hasMicError } = useDevices();
   const { hasNewMessages } = useChat();
   const {
@@ -105,6 +107,15 @@ export const BasicTray = () => {
       >
         <IconChat />
       </TrayButton>
+      {localParticipant?.owner && (
+        <TrayButton
+          label="Poll"
+          orange={currentModals[CREATE_POLL_MODAL]}
+          onClick={() => openModal(CREATE_POLL_MODAL)}
+        >
+          <IconPoll />
+        </TrayButton>
+      )}
       {!localParticipant?.owner && (
         <TrayButton
           label={isHandRaised ? 'Cancel' : 'Hand'}

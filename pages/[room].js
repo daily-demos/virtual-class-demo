@@ -7,6 +7,7 @@ import { ParticipantsProvider } from '../contexts/ParticipantsProvider';
 import { TranscriptionProvider } from '../contexts/TranscriptionProvider';
 import { UIStateProvider } from '../contexts/UIStateProvider';
 import { WaitingRoomProvider } from '../contexts/WaitingRoomProvider';
+import { PollProvider } from '../contexts/PollProvider';
 import getDemoProps from '../lib/demoProps';
 import PropTypes from 'prop-types';
 import App from '../components/App';
@@ -109,7 +110,9 @@ export default function Room({ domain, isConfigured = false }) {
               <TranscriptionProvider>
                 <ChatProvider>
                   <AppStateProvider>
-                    <App />
+                    <PollProvider>
+                      <App />
+                    </PollProvider>
                   </AppStateProvider>
                 </ChatProvider>
               </TranscriptionProvider>
