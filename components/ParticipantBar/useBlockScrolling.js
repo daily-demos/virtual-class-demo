@@ -5,16 +5,16 @@ import { useEffect, useState } from 'react';
  * Observes DOM changes and returns true, if a TileActions menu is opened.
  * @returns boolean
  */
-export const useBlockScrolling = (scrollRef) => {
+export const useBlockScrolling = scrollRef => {
   const [blockScrolling, setBlockScrolling] = useState(false);
 
   useEffect(() => {
     const scrollEl = scrollRef.current;
     if (!scrollEl || typeof MutationObserver === 'undefined') return false;
 
-    const observer = new MutationObserver((mutations) => {
+    const observer = new MutationObserver(mutations => {
       if (!scrollEl) return;
-      mutations.forEach((m) => {
+      mutations.forEach(m => {
         const { target } = m;
         if (
           m.attributeName === 'class' &&

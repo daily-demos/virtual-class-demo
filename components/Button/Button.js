@@ -22,7 +22,7 @@ export const Button = forwardRef(
       shadow = false,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const cx = classnames('button', className, size, variant, {
       disabled,
@@ -317,7 +317,7 @@ export const Button = forwardRef(
 
           .button.white {
             background: white;
-            border: 1px solid #C8D1DC;
+            border: 1px solid #c8d1dc;
           }
           .button.white:hover,
           .button.white:focus,
@@ -383,7 +383,7 @@ export const Button = forwardRef(
         `}</style>
       </>
     );
-  }
+  },
 );
 
 Button.propTypes = {

@@ -1,27 +1,21 @@
 import React from 'react';
 import Button from '../Button';
 import Capsule from '../Capsule';
-import {
-  Card,
-  CardBody,
-} from '../Card';
+import { Card, CardBody } from '../Card';
 import Well from '../Well';
 import { ReactComponent as IconArrowRight } from '../../icons/arrow-right-md.svg';
 import PropTypes from 'prop-types';
 import { TextInput } from '../Input';
 import Field from '../Field';
 
-export const IntroRole = ({
-  error,
-  onJoin,
-}) => {
+export const IntroRole = ({ error, onJoin }) => {
   return (
     <div className="role">
       <div className="header">
         <h2>Join your class</h2>
         <p>
-          Your virtual class room has been created. You can now join as either
-          a teacher or a student, simply click the relevant button below to get
+          Your virtual class room has been created. You can now join as either a
+          teacher or a student, simply click the relevant button below to get
           started.
         </p>
       </div>
@@ -71,7 +65,9 @@ export const IntroRole = ({
           <div>
             <Field label="Share student invite link:">
               <TextInput
-                value={typeof window !== 'undefined' ? window.location.href: null}
+                value={
+                  typeof window !== 'undefined' ? window.location.href : null
+                }
                 disabled
               />
             </Field>
@@ -79,31 +75,31 @@ export const IntroRole = ({
         </CardBody>
       </Card>
       <style jsx>{`
-      .role {
-        width: 520px;
-      }
-      .header {
-        text-align: center;
-        margin-bottom: var(--spacing-md);
-      }
-      .header h2 {
-        font-size: 32px;
-        color: var(--text-darkest);
-        font-weight: var(--weight-extra-bold);
-      }
-      .header p {
-        color: #6B7785;
-        font-weight: var(--weight-regular);
-      }
-      .divider {
-        background: var(--gray-light);
-        margin: var(--spacing-md) 0;
-        height: 1px;
-      }
-    `}</style>
+        .role {
+          width: 520px;
+        }
+        .header {
+          text-align: center;
+          margin-bottom: var(--spacing-md);
+        }
+        .header h2 {
+          font-size: 32px;
+          color: var(--text-darkest);
+          font-weight: var(--weight-extra-bold);
+        }
+        .header p {
+          color: #6b7785;
+          font-weight: var(--weight-regular);
+        }
+        .divider {
+          background: var(--gray-light);
+          margin: var(--spacing-md) 0;
+          height: 1px;
+        }
+      `}</style>
     </div>
   );
-}
+};
 
 IntroRole.propTypes = {
   error: PropTypes.string,

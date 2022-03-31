@@ -34,17 +34,17 @@ export const NetworkAside = () => {
   const downloadKbs = useMemo(
     () =>
       Math.round(
-        (networkStats?.stats?.latest?.videoRecvBitsPerSecond ?? 0) / 1000
+        (networkStats?.stats?.latest?.videoRecvBitsPerSecond ?? 0) / 1000,
       ),
-    [networkStats?.stats?.latest?.videoRecvBitsPerSecond]
+    [networkStats?.stats?.latest?.videoRecvBitsPerSecond],
   );
 
   const uploadKbs = useMemo(
     () =>
       Math.round(
-        (networkStats?.stats?.latest?.videoSendBitsPerSecond ?? 0) / 1000
+        (networkStats?.stats?.latest?.videoSendBitsPerSecond ?? 0) / 1000,
       ),
-    [networkStats?.stats?.latest?.videoSendBitsPerSecond]
+    [networkStats?.stats?.latest?.videoSendBitsPerSecond],
   );
 
   if (!showAside || showAside !== NETWORK_ASIDE) {

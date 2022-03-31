@@ -37,7 +37,7 @@ export const Modal = ({
     }, transitionMs);
   };
 
-  const handleBackdropClick = (ev) => {
+  const handleBackdropClick = ev => {
     const isBackDropTarget = ev.target === ev.currentTarget;
     const isFocusOutside = !ev.currentTarget.contains(document.activeElement);
     // close only if backdrop is actually clicked
@@ -91,7 +91,7 @@ export const Modal = ({
                     close();
                   }
                 },
-              })
+              }),
             )}
           </CardFooter>
         )}
@@ -142,7 +142,7 @@ export const Modal = ({
         }
       `}</style>
     </div>,
-    document.body
+    document.body,
   );
 };
 

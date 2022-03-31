@@ -13,12 +13,8 @@ import VideoGrid from './VideoGrid';
 const SIDEBAR_WIDTH = 186;
 
 export const Room = () => {
-  const {
-    currentSpeakerId,
-    localParticipant,
-    screens,
-    orderedParticipantIds,
-  } = useParticipants();
+  const { currentSpeakerId, localParticipant, screens, orderedParticipantIds } =
+    useParticipants();
   const { isBoardActive } = useAppState();
   const { isTranscribing, transcriptionHistory } = useTranscription();
   const activeRef = useRef();
@@ -27,7 +23,7 @@ export const Room = () => {
 
   const showSidebar = useMemo(
     () => orderedParticipantIds.length > 0 || hasScreenshares || isBoardActive,
-    [hasScreenshares, isBoardActive, orderedParticipantIds.length]
+    [hasScreenshares, isBoardActive, orderedParticipantIds.length],
   );
 
   const fixedItems = useMemo(() => {
@@ -55,7 +51,10 @@ export const Room = () => {
       <Container>
         <Header />
         <VideoContainer>
-          <div id="whiteboard" style={{ display: !isBoardActive ? 'none': '' }} />
+          <div
+            id="whiteboard"
+            style={{ display: !isBoardActive ? 'none' : '' }}
+          />
           {!isBoardActive && (
             <>
               {isActiveSpeakerView ? (
@@ -63,19 +62,22 @@ export const Room = () => {
                   {screens.length > 0 ? (
                     <Screens />
                   ) : (
-                    <SpeakerTile screenRef={activeRef} sessionId={currentSpeakerId} />
+                    <SpeakerTile
+                      screenRef={activeRef}
+                      sessionId={currentSpeakerId}
+                    />
                   )}
                 </div>
-              ): (
+              ) : (
                 <VideoGrid />
               )}
             </>
           )}
-          {isTranscribing &&
+          {isTranscribing && (
             <div className="transcriptions">
               {transcriptionHistory[transcriptionHistory.length - 1]}
             </div>
-          }
+          )}
         </VideoContainer>
       </Container>
       {isActiveSpeakerView && showSidebar && (

@@ -32,16 +32,16 @@ export const Capsule = ({ children, variant }) => (
         color: #ffffff;
       }
       .capsule.orange {
-        background-color: #FEF2D8;
-        color: #F79400;
+        background-color: #fef2d8;
+        color: #f79400;
       }
       .capsule.blue {
-        background-color: #E2FBFD;
-        color: #00C9DF;
+        background-color: #e2fbfd;
+        color: #00c9df;
       }
       .capsule.gray {
-        background-color: #E6EAEF;
-        color: #6B7785;
+        background-color: #e6eaef;
+        color: #6b7785;
       }
     `}</style>
   </span>
@@ -49,7 +49,15 @@ export const Capsule = ({ children, variant }) => (
 
 Capsule.propTypes = {
   children: PropTypes.node,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info', 'orange', 'blue', 'gray']),
+  variant: PropTypes.oneOf([
+    'success',
+    'warning',
+    'error',
+    'info',
+    'orange',
+    'blue',
+    'gray',
+  ]),
 };
 
 export default Capsule;

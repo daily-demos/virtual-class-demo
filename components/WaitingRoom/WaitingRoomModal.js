@@ -8,11 +8,11 @@ import { WaitingParticipantRow } from './WaitingParticipantRow';
 export const WaitingRoomModal = ({ onClose }) => {
   const { denyAccess, grantAccess, waitingParticipants } = useWaitingRoom();
 
-  const handleAllowAllClick = (close) => {
+  const handleAllowAllClick = close => {
     grantAccess('*');
     close();
   };
-  const handleDenyAllClick = (close) => {
+  const handleDenyAllClick = close => {
     denyAccess('*');
     close();
   };
@@ -41,7 +41,7 @@ export const WaitingRoomModal = ({ onClose }) => {
         </Button>,
       ]}
     >
-      {waitingParticipants.map((p) => (
+      {waitingParticipants.map(p => (
         <WaitingParticipantRow participant={p} key={p.id} />
       ))}
     </Modal>

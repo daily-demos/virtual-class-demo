@@ -31,18 +31,14 @@ export const CALL_STATE_NOT_ALLOWED = 'not-allowed';
 export const CALL_STATE_AWAITING_ARGS = 'awaiting-args';
 export const CALL_STATE_NOT_SECURE = 'not-secure';
 
-export const useCallMachine = ({
-  domain,
-  room,
-  token,
-}) => {
+export const useCallMachine = ({ domain, room, token }) => {
   const [daily, setDaily] = useState(null);
   const [state, setState] = useState(CALL_STATE_READY);
   const [redirectOnLeave, setRedirectOnLeave] = useState(false);
 
   const url = useMemo(
     () => (domain && room ? `https://${domain}.daily.co/${room}` : null),
-    [domain, room]
+    [domain, room],
   );
 
   /**
@@ -51,7 +47,7 @@ export const useCallMachine = ({
    * `enable_knocking` and `enable_prejoin_ui` when creating the room
    * @param co – Daily call object
    */
-  const prejoinUIEnabled = async (co) => {
+  const prejoinUIEnabled = async co => {
     const dailyRoomInfo = await co.room();
     const { access } = co.accessState();
 
@@ -76,7 +72,7 @@ export const useCallMachine = ({
    * Joins call (with the token, if applicable)
    */
   const join = useCallback(
-    async (callObject) => {
+    async callObject => {
       setState(CALL_STATE_JOINING);
       const dailyRoomInfo = await callObject.room();
 
@@ -88,14 +84,14 @@ export const useCallMachine = ({
       await callObject.join({ token, url });
       setState(CALL_STATE_JOINED);
     },
-    [token, url]
+    [token, url],
   );
 
   /**
    * PreAuth checks whether we have access or need to knock
    */
   const preAuth = useCallback(
-    async (co) => {
+    async co => {
       const { access } = await co.preAuth({
         token,
         url,
@@ -121,7 +117,7 @@ export const useCallMachine = ({
       // Public room or private room with passed `token` and `enable_prejoin_ui` is `false`
       join(co);
     },
-    [join, token, url]
+    [join, token, url],
   );
 
   /**
@@ -149,7 +145,7 @@ export const useCallMachine = ({
        */
       if (
         [CALL_STATE_ENDED, CALL_STATE_AWAITING_ARGS, CALL_STATE_READY].includes(
-          state
+          state,
         )
       ) {
         return;
@@ -177,7 +173,7 @@ export const useCallMachine = ({
        */
       join(daily);
     },
-    [daily, state, join]
+    [daily, state, join],
   );
 
   // --- Effects ---
@@ -234,7 +230,7 @@ export const useCallMachine = ({
       'error',
     ];
 
-    const handleMeetingState = async (ev) => {
+    const handleMeetingState = async ev => {
       const { access } = daily.accessState();
 
       switch (ev.action) {
@@ -267,7 +263,7 @@ export const useCallMachine = ({
         case 'left-meeting':
           daily.destroy();
           setState(
-            !redirectOnLeave ? CALL_STATE_ENDED : CALL_STATE_REDIRECTING
+            !redirectOnLeave ? CALL_STATE_ENDED : CALL_STATE_REDIRECTING,
           );
           break;
         case 'error':
@@ -323,11 +319,10 @@ export const useCallMachine = ({
     };
 
     // Listen for changes in state
-    events.forEach((event) => daily.on(event, handleMeetingState));
+    events.forEach(event => daily.on(event, handleMeetingState));
 
     // Stop listening for changes in state
-    return () =>
-      events.forEach((event) => daily.off(event, handleMeetingState));
+    return () => events.forEach(event => daily.off(event, handleMeetingState));
   }, [daily, domain, room, redirectOnLeave]);
 
   return {

@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       `${
         process.env.DAILY_REST_DOMAIN || 'https://api.daily.co/v1'
       }/meeting-tokens`,
-      options
+      options,
     );
 
     const { token, error } = await dailyRes.json();

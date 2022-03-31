@@ -14,9 +14,7 @@ export const VIEW_MODE_GRID = 'grid';
 export const VIEW_MODE_SPEAKER = 'speaker';
 export const VIEW_MODE_MOBILE = 'mobile';
 
-export const UIStateProvider = ({
-  children,
-}) => {
+export const UIStateProvider = ({ children }) => {
   const [pinnedId, setPinnedId] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [preferredViewMode, setPreferredViewMode] = useState(VIEW_MODE_SPEAKER);
@@ -45,19 +43,19 @@ export const UIStateProvider = ({
     }
   }, [pinnedId, isMobile, isShowingScreenshare, preferredViewMode]);
 
-  const openModal = useCallback((modalName) => {
-    setActiveModals((prevState) => ({
+  const openModal = useCallback(modalName => {
+    setActiveModals(prevState => ({
       ...prevState,
       [modalName]: true,
     }));
   }, []);
 
-  const closeModal = useCallback((modalName) => {
+  const closeModal = useCallback(modalName => {
     if (!modalName) {
       setActiveModals({});
     }
 
-    setActiveModals((prevState) => ({
+    setActiveModals(prevState => ({
       ...prevState,
       [modalName]: false,
     }));
@@ -65,8 +63,8 @@ export const UIStateProvider = ({
 
   const currentModals = useDeepCompareMemo(() => activeModals, [activeModals]);
 
-  const toggleAside = useCallback((newAside) => {
-    setShowAside((p) => (p === newAside ? null : newAside));
+  const toggleAside = useCallback(newAside => {
+    setShowAside(p => (p === newAside ? null : newAside));
   }, []);
 
   const closeAside = useCallback(() => {

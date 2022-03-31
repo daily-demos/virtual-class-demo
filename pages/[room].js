@@ -15,11 +15,7 @@ import { useRouter } from 'next/router';
 import Daily from '../components/Prejoin/Daily';
 import Capsule from '../components/Capsule';
 
-
-export default function Room({
-  domain,
-  isConfigured = false,
-}) {
+export default function Room({ domain, isConfigured = false }) {
   const router = useRouter();
   const { room } = router.query;
 
@@ -70,35 +66,35 @@ export default function Room({
             room={room}
             error={tokenError}
             domain={domain}
-            onJoin={(isOwner) =>
+            onJoin={isOwner =>
               isOwner ? getMeetingToken(room, isOwner) : setRoomName(room)
             }
           />
         </div>
 
         <style jsx>{`
-        main {
-          height: 100vh;
-          display: grid;
-          grid-template-columns: 600px auto;
-          background: var(--gray-wash);
-        }
-        .intro {
-          display: grid;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-          width: 100%;
-        }
-        .domain {
-          top: 20px;
-          right: 20px;
-          margin-left: auto;
-          position: absolute;
-        }
-      `}</style>
+          main {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 600px auto;
+            background: var(--gray-wash);
+          }
+          .intro {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+          }
+          .domain {
+            top: 20px;
+            right: 20px;
+            margin-left: auto;
+            position: absolute;
+          }
+        `}</style>
       </main>
-    )
+    );
   }
 
   /**
@@ -106,11 +102,7 @@ export default function Room({
    */
   return (
     <UIStateProvider>
-      <CallProvider
-        domain={domain}
-        room={roomName}
-        token={token}
-      >
+      <CallProvider domain={domain} room={roomName} token={token}>
         <ParticipantsProvider>
           <MediaDeviceProvider>
             <WaitingRoomProvider>
@@ -138,7 +130,7 @@ export async function getStaticPaths() {
   return {
     paths: [],
     fallback: 'blocking',
-  }
+  };
 }
 
 export async function getStaticProps() {

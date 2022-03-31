@@ -19,14 +19,19 @@ const IntroPoint = ({ children }) => {
         }
       `}</style>
     </div>
-  )
+  );
 };
 
 const Daily = () => {
   return (
     <div className="logo">
       <a href="https://daily.co">
-        <Image src="/assets/daily-logo-dark.svg" alt="Daily Logo" width="140px" height="52px" />
+        <Image
+          src="/assets/daily-logo-dark.svg"
+          alt="Daily Logo"
+          width="140px"
+          height="52px"
+        />
       </a>
       <div className="content">
         <IntroPoint>Some selling point here.</IntroPoint>
@@ -58,7 +63,7 @@ const Daily = () => {
         }
       `}</style>
     </div>
-  )
+  );
 };
 
 export default Daily;

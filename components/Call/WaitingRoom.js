@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  WaitingRoomModal,
-  WaitingRoomNotification,
-} from '../WaitingRoom';
+import { WaitingRoomModal, WaitingRoomNotification } from '../WaitingRoom';
 import { useWaitingRoom } from '../../contexts/WaitingRoomProvider';
 
 export const WaitingRoom = () => {

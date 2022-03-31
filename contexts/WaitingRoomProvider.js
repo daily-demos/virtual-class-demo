@@ -17,7 +17,7 @@ export const WaitingRoomProvider = ({ children }) => {
 
   const multipleWaiting = useMemo(
     () => waitingParticipants.length > 1,
-    [waitingParticipants]
+    [waitingParticipants],
   );
 
   useEffect(() => {

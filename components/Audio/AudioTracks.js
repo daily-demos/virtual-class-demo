@@ -16,11 +16,11 @@ export const AudioTracks = () => {
 
   const subscribedIds = useParticipantIds({
     filter: useCallback(
-      (p) =>
+      p =>
         !p.local &&
         (p.tracks.audio.subscribed === true ||
           p.tracks.screenAudio.subscribed === true),
-      []
+      [],
     ),
   });
 
@@ -30,7 +30,7 @@ export const AudioTracks = () => {
 
   useEffect(() => {
     const playTracks = () => {
-      document.querySelectorAll('.audioTracks audio').forEach(async (audio) => {
+      document.querySelectorAll('.audioTracks audio').forEach(async audio => {
         try {
           if (audio.paused && audio.readyState === audio.HAVE_ENOUGH_DATA) {
             await audio?.play();
@@ -50,7 +50,7 @@ export const AudioTracks = () => {
   const tracksComponent = useMemo(() => {
     if (disableAudio) return null;
     if (isSafari() || topology === 'peer') {
-      return subscribedIds.map((sessionId) => (
+      return subscribedIds.map(sessionId => (
         <AudioTrack key={sessionId} sessionId={sessionId} />
       ));
     }

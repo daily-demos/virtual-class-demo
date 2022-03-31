@@ -35,10 +35,10 @@ export const ParticipantsProvider = ({ children }) => {
     'active-speaker-change',
     useRecoilCallback(
       ({ set }) =>
-        (events) => {
-          set(participantMetaDataState, (m) => {
+        events => {
+          set(participantMetaDataState, m => {
             const newMetaData = { ...m };
-            events.forEach((ev) => {
+            events.forEach(ev => {
               if (!ev.activeSpeaker?.peerId) return;
               newMetaData[ev.activeSpeaker.peerId] = {
                 ...newMetaData[ev.activeSpeaker.peerId],
@@ -48,8 +48,8 @@ export const ParticipantsProvider = ({ children }) => {
             return newMetaData;
           });
         },
-      []
-    )
+      [],
+    ),
   );
 
   const { screens } = useScreenShare();
@@ -59,11 +59,11 @@ export const ParticipantsProvider = ({ children }) => {
    */
   const participantIds = useParticipantIds({
     filter: useCallback(
-      (p) => {
+      p => {
         if (broadcast) return p.owner;
         return true;
       },
-      [broadcast]
+      [broadcast],
     ),
   });
 
@@ -73,11 +73,11 @@ export const ParticipantsProvider = ({ children }) => {
    */
   const participantCount = useParticipantIds({
     filter: useCallback(
-      (p) => {
+      p => {
         if (broadcast) return p.owner;
         return true;
       },
-      [broadcast]
+      [broadcast],
     ),
   }).length;
 
@@ -107,23 +107,23 @@ export const ParticipantsProvider = ({ children }) => {
     if (isPinnedPresent) return pinnedId;
 
     const displayableIds = participantIds.filter(
-      (id) => id !== localParticipant?.session_id
+      id => id !== localParticipant?.session_id,
     );
     const participants = Object.values(daily.participants());
 
     if (
       !isPresent &&
       displayableIds.length > 0 &&
-      displayableIds.every((id) => {
-        const p = participants.find((p) => p.session_id === id);
+      displayableIds.every(id => {
+        const p = participants.find(p => p.session_id === id);
         return !p?.audio && !participantMetaData[id]?.last_active_date;
       })
     ) {
       // Return first cam on participant in case everybody is muted and nobody ever talked
       // or first remote participant, in case everybody's cam is muted, too.
       return (
-        displayableIds.find((id) => {
-          const p = participants.find((p) => p.session_id === id);
+        displayableIds.find(id => {
+          const p = participants.find(p => p.session_id === id);
           return p?.video;
         }) ?? displayableIds?.[0]
       );
@@ -160,10 +160,10 @@ export const ParticipantsProvider = ({ children }) => {
   useThrottledDailyEvent(
     'participant-joined',
     useCallback(
-      (events) => {
-        setOrderedParticipantIds((prevIds) => {
+      events => {
+        setOrderedParticipantIds(prevIds => {
           let newIds = prevIds;
-          events.forEach((ev) => {
+          events.forEach(ev => {
             // Append video-off-participant to end of list
             if (!ev.participant.video) {
               newIds = [...newIds, ev.participant.session_id];
@@ -171,18 +171,18 @@ export const ParticipantsProvider = ({ children }) => {
             }
             const participants = Object.values(daily.participants());
             const idObjects = newIds
-              .map((id) => participants.find((p) => p.session_id === id))
+              .map(id => participants.find(p => p.session_id === id))
               .filter(Boolean);
             const firstInactiveCamOffIndex = idObjects.findIndex(
-              (p) =>
+              p =>
                 ['off', 'blocked'].includes(p?.tracks?.video?.state) &&
                 !p?.local &&
-                p?.session_id !== active?.session_id
+                p?.session_id !== active?.session_id,
             );
             if (firstInactiveCamOffIndex >= 0) {
               // Add video-on-participant before first remote inactive video-off-participant
               idObjects.splice(firstInactiveCamOffIndex, 0, ev.participant);
-              newIds = idObjects.map((p) => p?.session_id).filter(Boolean);
+              newIds = idObjects.map(p => p?.session_id).filter(Boolean);
               return;
             }
             newIds = [...newIds, ev.participant.session_id];
@@ -190,31 +190,31 @@ export const ParticipantsProvider = ({ children }) => {
           return newIds;
         });
       },
-      [active?.session_id, daily]
+      [active?.session_id, daily],
     ),
-    250
+    250,
   );
   useThrottledDailyEvent(
     'participant-left',
     useRecoilCallback(
       ({ set }) =>
-        (events) => {
-          setOrderedParticipantIds((prevIds) =>
+        events => {
+          setOrderedParticipantIds(prevIds =>
             prevIds.filter(
-              (id) => !events.some((ev) => ev.participant.session_id === id)
-            )
+              id => !events.some(ev => ev.participant.session_id === id),
+            ),
           );
-          set(participantMetaDataState, (md) => {
+          set(participantMetaDataState, md => {
             const newMetaData = { ...md };
-            events.forEach((ev) => {
+            events.forEach(ev => {
               delete newMetaData[ev.participant.session_id];
             });
             return newMetaData;
           });
         },
-      []
+      [],
     ),
-    250
+    250,
   );
 
   /**
@@ -227,7 +227,7 @@ export const ParticipantsProvider = ({ children }) => {
      * - one of both ids is not set
      */
     if (id1 === id2 || !id1 || !id2) return;
-    setOrderedParticipantIds((prevIds) => {
+    setOrderedParticipantIds(prevIds => {
       const newIds = prevIds.slice();
       const idx1 = prevIds.indexOf(id1);
       const idx2 = prevIds.indexOf(id2);
@@ -246,7 +246,7 @@ export const ParticipantsProvider = ({ children }) => {
   const [muteNewParticipants, setMuteNewParticipants] = useState(false);
 
   const unmutedIds = useParticipantIds({
-    filter: useCallback((p) => !p.local && p.audio, []),
+    filter: useCallback(p => !p.local && p.audio, []),
   });
   const muteAll = useCallback(
     (muteFutureParticipants = false) => {
@@ -259,10 +259,10 @@ export const ParticipantsProvider = ({ children }) => {
             setAudio: false,
           };
           return o;
-        }, {})
+        }, {}),
       );
     },
-    [daily, localParticipant, unmutedIds]
+    [daily, localParticipant, unmutedIds],
   );
 
   return (

@@ -17,11 +17,11 @@ export const Video = forwardRef(
     const [isMirrored, setIsMirrored] = useState(isLocalCam);
     const videoState = useMediaTrack(
       sessionId,
-      isScreen ? 'screenVideo' : 'video'
+      isScreen ? 'screenVideo' : 'video',
     );
     const videoTrack = useMemo(
       () => videoState.persistentTrack,
-      [videoState.persistentTrack]
+      [videoState.persistentTrack],
     );
 
     /**
@@ -32,7 +32,7 @@ export const Video = forwardRef(
      */
     const isPlayable = useDeepCompareMemo(
       () => isLocalCam || isScreen || !videoState.isOff,
-      [isLocalCam, isScreen, videoState.isOff]
+      [isLocalCam, isScreen, videoState.isOff],
     );
 
     const isChrome92 = useMemo(() => {
@@ -153,6 +153,6 @@ export const Video = forwardRef(
         `}</style>
       </>
     );
-  }
+  },
 );
 Video.displayName = 'Video';

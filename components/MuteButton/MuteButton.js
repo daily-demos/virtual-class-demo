@@ -20,7 +20,7 @@ export const MuteButton = ({
 
   useEffect(() => setMuted(!isMuted), [isMuted]);
 
-  const toggleDevice = (newState) => {
+  const toggleDevice = newState => {
     if (mic) {
       callObject.setLocalAudio(newState);
     } else {

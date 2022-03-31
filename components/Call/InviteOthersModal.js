@@ -20,24 +20,26 @@ export const InviteOthersModal = () => {
           <div className="link">
             <TextInput value={window.location.href} disabled />
             <Button
-              onClick={() => navigator.clipboard.writeText(window.location.href)}
+              onClick={() =>
+                navigator.clipboard.writeText(window.location.href)
+              }
             >
               Copy link
             </Button>
           </div>
         </div>
         <style jsx>{`
-        .link {
-          display: flex;
-          justify-content: center;
-          gap: 10px;
-          width: 100%;
-          height: 100%;
-        }
-      `}</style>
+          .link {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            height: 100%;
+          }
+        `}</style>
       </div>
     </Modal>
-  )
-}
+  );
+};
 
 export default InviteOthersModal;

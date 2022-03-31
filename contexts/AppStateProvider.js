@@ -1,6 +1,10 @@
 import React, {
-  createContext, useCallback,
-  useContext, useEffect, useMemo, useState
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react';
 import { useDaily, useLocalParticipant } from '@daily-co/daily-react-hooks';
 import PropTypes from 'prop-types';
@@ -18,57 +22,65 @@ export const AppStateProvider = ({ children }) => {
       allowToTalk: true,
       boardId: null,
       handRaisedParticipants: [],
-    }
+    },
   });
 
   const daily = useDaily();
   const localParticipant = useLocalParticipant();
 
-  const onHandRaise = useCallback((raiseHand) => {
-    if (!localParticipant?.session_id) return;
+  const onHandRaise = useCallback(
+    raiseHand => {
+      if (!localParticipant?.session_id) return;
 
-    const sessionId = localParticipant.session_id;
+      const sessionId = localParticipant.session_id;
 
-    if (raiseHand) {
-      setSharedState(sharedState => {
-        return {
-          ...sharedState,
-          handRaisedParticipants:
-            [...new Set(sharedState.handRaisedParticipants).add(sessionId)],
-        }
-      });
-    } else {
-      setSharedState(sharedState => {
-        return {
-          ...sharedState,
-          handRaisedParticipants:
-            [...sharedState.handRaisedParticipants].filter(p => p !== sessionId),
-        }
-      });
-    }
-  }, [localParticipant]);
+      if (raiseHand) {
+        setSharedState(sharedState => {
+          return {
+            ...sharedState,
+            handRaisedParticipants: [
+              ...new Set(sharedState.handRaisedParticipants).add(sessionId),
+            ],
+          };
+        });
+      } else {
+        setSharedState(sharedState => {
+          return {
+            ...sharedState,
+            handRaisedParticipants: [
+              ...sharedState.handRaisedParticipants,
+            ].filter(p => p !== sessionId),
+          };
+        });
+      }
+    },
+    [localParticipant],
+  );
 
   const raiseHand = useCallback(() => {
     onHandRaise(!isHandRaised);
     setIsHandRaised(raise => !raise);
   }, [isHandRaised]);
 
-  const createBoard = useCallback((boardId = null) => {
-    const zwb = Zwibbler.create('#whiteboard');
-    setBoard(zwb);
-
-    if (!boardId) {
-      const boardId = zwb.createSharedSession();
+  const createBoard = useCallback(
+    (boardId = null) => {
+      const zwb = Zwibbler.create('#whiteboard');
       setBoard(zwb);
-      setSharedState(sharedState => {
-        return {
-          ...sharedState,
-          isBoardActive: true,
-          boardId,
-        }
-      });
-    } else zwb.joinSharedSession(boardId);
-  }, [setSharedState]);
+
+      if (!boardId) {
+        const boardId = zwb.createSharedSession();
+        setBoard(zwb);
+        setSharedState(sharedState => {
+          return {
+            ...sharedState,
+            isBoardActive: true,
+            boardId,
+          };
+        });
+      } else zwb.joinSharedSession(boardId);
+    },
+    [setSharedState],
+  );
 
   const deleteBoard = useCallback(() => {
     setSharedState(sharedState => {
@@ -76,7 +88,7 @@ export const AppStateProvider = ({ children }) => {
         ...sharedState,
         isBoardActive: false,
         boardId: null,
-      }
+      };
     });
     board.destroy();
   }, [board, setSharedState]);
@@ -86,7 +98,7 @@ export const AppStateProvider = ({ children }) => {
       return {
         ...sharedState,
         allowToTalk: !sharedState.allowToTalk,
-      }
+      };
     });
   }, [setSharedState]);
 

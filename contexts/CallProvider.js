@@ -10,7 +10,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useState
+  useState,
 } from 'react';
 import { DailyProvider } from '@daily-co/daily-react-hooks';
 import { useRouter } from 'next/router';
@@ -52,10 +52,10 @@ export const CallProvider = ({
 
   // Convenience wrapper for changing the bandwidth of the client
   const setBandwidth = useCallback(
-    (quality) => {
+    quality => {
       daily.setBandwidth(quality);
     },
-    [daily]
+    [daily],
   );
 
   useEffect(() => {
