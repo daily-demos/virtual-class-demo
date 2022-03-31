@@ -33,7 +33,7 @@ export const PollProvider = ({ children }) => {
     onAppMessage: useCallback(
       ev => {
         const msg = ev?.data?.message
-        const msgType = message?.type;
+        const msgType = msg?.type;
         if (!msgType) return;
 
         switch (msgType) {
