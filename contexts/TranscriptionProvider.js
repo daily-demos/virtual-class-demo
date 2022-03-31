@@ -45,8 +45,8 @@ export const TranscriptionProvider = ({ children }) => {
   }, [callObject, isTranscribing]);
 
  const isTranscriptionEnabled = useMemo(() =>
-   Boolean(room?.domainConfig?.enable_transcription),
-   [room]);
+   !!room?.domainConfig?.enable_transcription,
+   [room?.domainConfig?.enable_transcription]);
 
   useEffect(() => {
     if (!callObject) {
