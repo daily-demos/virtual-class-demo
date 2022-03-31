@@ -61,7 +61,7 @@ export const TranscriptionProvider = ({ children }) => {
       toggleTranscription();
       router.replace(`/${roomURL}`);
     }
-  },[
+  }, [
     router.isReady,
     router.query?.trans,
     isTranscribing,

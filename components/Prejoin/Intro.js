@@ -7,22 +7,13 @@ import PropTypes from 'prop-types';
 import { BooleanInput, SelectInput, TextInput } from '../Input';
 import Field from '../Field';
 import ReactLoading from 'react-loading';
+import moment from 'moment';
 
 export const Intro = ({ error, creating, onCreate }) => {
-  const [startTime, setStartTime] = useState('');
+  const [startTime, setStartTime] = useState(moment().format(moment.HTML5_FMT.DATETIME_LOCAL));
   const [duration, setDuration] = useState('30');
   const [isTranscriptionEnabled, setIsTranscriptionEnabled] = useState(false);
   const [enableTrans, setEnableTrans] = useState(false);
-
-  useEffect(() => {
-    const date = new Date(
-      new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000,
-    );
-    const isoString = date.toISOString();
-    setStartTime(
-      isoString.substring(0, ((isoString.indexOf('T') | 0) + 6) | 0),
-    );
-  }, []);
 
   useEffect(() => {
     const getTranscriptionStatus = async () => {
