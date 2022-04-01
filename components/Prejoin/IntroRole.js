@@ -78,6 +78,11 @@ export const IntroRole = ({ error, onJoin }) => {
         .role {
           width: 520px;
         }
+        .role :global(.capsule) {
+          margin: 0;
+          padding: var(--spacing-xxs);
+          border-radius: 6px;
+        }
         .header {
           text-align: center;
           margin-bottom: var(--spacing-md);

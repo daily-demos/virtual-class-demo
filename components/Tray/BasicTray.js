@@ -46,7 +46,7 @@ export const BasicTray = () => {
     isHandRaised,
     raiseHand,
   } = useAppState();
-  const { hideTray, isActive, selected } = usePoll();
+  const { showPoll, isActive, selected } = usePoll();
 
   const { isSharingScreen, screens, startScreenShare, stopScreenShare } =
     useScreenShare();
@@ -121,7 +121,7 @@ export const BasicTray = () => {
       >
         <IconChat />
       </TrayButton>
-      {!hideTray && (
+      {showPoll && (
         <TrayButton
           label="Poll"
           orange={currentModals[pollModal]}
