@@ -57,29 +57,13 @@ export const ParticipantsProvider = ({ children }) => {
   /**
    * Only return participants that should be visible in the call
    */
-  const participantIds = useParticipantIds({
-    filter: useCallback(
-      p => {
-        if (broadcast) return p.owner;
-        return true;
-      },
-      [broadcast],
-    ),
-  });
+  const participantIds = useParticipantIds();
 
-  /**
-   * The number of participants, who are not a shared screen
-   * (technically a shared screen counts as a participant, but we shouldn't tell humans)
-   */
-  const participantCount = useParticipantIds({
-    filter: useCallback(
-      p => {
-        if (broadcast) return p.owner;
-        return true;
-      },
-      [broadcast],
-    ),
+  const nonOwnerParticipantsCount = useParticipantIds({
+    filter: useCallback(p => !p.owner, [broadcast]),
   }).length;
+
+  const participantCount = useParticipantIds().length;
 
   /**
    * The participant who most recently got mentioned via a `active-speaker-change` event
@@ -276,6 +260,7 @@ export const ParticipantsProvider = ({ children }) => {
         muteAll,
         muteNewParticipants,
         participantCount,
+        nonOwnerParticipantsCount,
         participantMarkedForRemoval,
         screens,
         setParticipantMarkedForRemoval,

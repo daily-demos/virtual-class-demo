@@ -27,6 +27,9 @@ import {
 } from '@daily-co/daily-react-hooks';
 import { Tray, TrayButton } from './Tray';
 import { CREATE_POLL_MODAL } from '../Call/CreatePollModal';
+import { usePoll } from '../../contexts/PollProvider';
+import { POLL_RESULT_MODAL } from '../Call/PollResultModal';
+import { POLL_MODAL } from '../Call/PollModal';
 
 const MAX_SCREEN_SHARES = 2;
 
@@ -43,6 +46,7 @@ export const BasicTray = () => {
     isHandRaised,
     raiseHand,
   } = useAppState();
+  const { hideTray, isActive, selected } = usePoll();
 
   const { isSharingScreen, screens, startScreenShare, stopScreenShare } =
     useScreenShare();
@@ -76,6 +80,16 @@ export const BasicTray = () => {
 
   const disabled = screens.length >= MAX_SCREEN_SHARES && !isSharingScreen;
 
+  const pollModal = useMemo(() => {
+    if (localParticipant?.owner) {
+      if (isActive) return POLL_RESULT_MODAL;
+      else return CREATE_POLL_MODAL;
+    } else {
+      if (selected) return POLL_RESULT_MODAL;
+      else return POLL_MODAL;
+    }
+  }, []);
+
   return (
     <Tray className="tray">
       <TrayButton
@@ -107,11 +121,11 @@ export const BasicTray = () => {
       >
         <IconChat />
       </TrayButton>
-      {localParticipant?.owner && (
+      {!hideTray && (
         <TrayButton
           label="Poll"
-          orange={currentModals[CREATE_POLL_MODAL]}
-          onClick={() => openModal(CREATE_POLL_MODAL)}
+          orange={currentModals[pollModal]}
+          onClick={() => openModal(pollModal)}
         >
           <IconPoll />
         </TrayButton>

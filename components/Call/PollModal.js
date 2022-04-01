@@ -41,11 +41,15 @@ const PollModalOption = ({ option }) => {
 };
 
 export const PollModal = () => {
-  const { currentModals } = useUIState();
+  const { currentModals, closeModal } = useUIState();
   const { question, options } = usePoll();
 
   return (
-    <Modal title={question} isOpen={currentModals[POLL_MODAL]}>
+    <Modal
+      title={question}
+      isOpen={currentModals[POLL_MODAL]}
+      onClose={() => closeModal(POLL_MODAL)}
+    >
       <div className="poll">
         {options.map((option, index) => (
           <PollModalOption option={option} key={index} />

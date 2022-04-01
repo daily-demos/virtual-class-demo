@@ -3,12 +3,14 @@ import Modal from '../Modal';
 import { useUIState } from '../../contexts/UIStateProvider';
 import { usePoll } from '../../contexts/PollProvider';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
+import Button from '../Button';
+import { useLocalParticipant } from '@daily-co/daily-react-hooks';
 
 export const POLL_RESULT_MODAL = 'poll-result';
 
 const PollOptionResult = ({ option }) => {
   const { results } = usePoll();
-  const { participantCount } = useParticipants();
+  const { nonOwnerParticipantsCount } = useParticipants();
 
   return useMemo(
     () => (
@@ -25,7 +27,9 @@ const PollOptionResult = ({ option }) => {
           <div
             className="range-slider"
             style={{
-              width: `${(results[option].length / participantCount) * 100}%`,
+              width: `${
+                (results[option].length / nonOwnerParticipantsCount) * 100
+              }%`,
             }}
           />
         )}
@@ -63,7 +67,8 @@ const PollOptionResult = ({ option }) => {
 
 export const PollModal = () => {
   const { currentModals, closeModal } = useUIState();
-  const { question, options } = usePoll();
+  const { question, options, concludePoll } = usePoll();
+  const localParticipant = useLocalParticipant();
 
   return (
     <Modal
@@ -77,6 +82,21 @@ export const PollModal = () => {
           <PollOptionResult option={option} key={index} />
         ))}
       </div>
+
+      {localParticipant?.owner && (
+        <>
+          <div className="divider" />
+          <Button onClick={concludePoll}>Conclude Poll</Button>
+        </>
+      )}
+
+      <style jsx>{`
+        .divider {
+          border: 1px solid #e6eaef;
+          height: 1px;
+          margin-bottom: var(--spacing-xs);
+        }
+      `}</style>
     </Modal>
   );
 };
