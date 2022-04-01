@@ -15,10 +15,13 @@ import IntroRole from '../components/Prejoin/IntroRole';
 import { useRouter } from 'next/router';
 import Daily from '../components/Prejoin/Daily';
 import Capsule from '../components/Capsule';
+import { getGridSize } from '../lib/getGridSize';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 export default function Room({ domain, isConfigured = false }) {
   const router = useRouter();
   const { room } = router.query;
+  const { width } = useWindowSize();
 
   const [roomName, setRoomName] = useState();
   const [token, setToken] = useState();
@@ -77,7 +80,7 @@ export default function Room({ domain, isConfigured = false }) {
           main {
             height: 100vh;
             display: grid;
-            grid-template-columns: 600px auto;
+            grid-template-columns: ${getGridSize(width)} auto;
             background: var(--gray-wash);
           }
           .intro {
