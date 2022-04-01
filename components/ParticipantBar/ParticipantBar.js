@@ -157,7 +157,7 @@ export const ParticipantBar = ({
     [activeSpeakerId, aspectRatio, shouldRenderSpeakerBorder, visibleOthers],
   );
 
-  if (others.length === 0) return null;
+  if (fixed.length === 0) return null;
 
   return (
     <div
