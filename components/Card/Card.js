@@ -16,6 +16,8 @@ export const Card = ({ children, className, variant }) => (
 
       .card.dark {
         background-color: var(--blue-dark);
+        border-radius: 0;
+        border: none;
       }
     `}</style>
   </div>
