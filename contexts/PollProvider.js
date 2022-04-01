@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, useCallback, useEffect, useMemo } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
 import PropTypes from 'prop-types';
 import {
   useAppMessage,
@@ -33,7 +40,10 @@ export const PollProvider = ({ children }) => {
 
   const [showPoll, setShowPoll] = useState(false);
 
-  useEffect(() => setShowPoll(localParticipant?.owner), [localParticipant?.owner]);
+  useEffect(
+    () => setShowPoll(localParticipant?.owner),
+    [localParticipant?.owner],
+  );
 
   const resetValues = useCallback(() => {
     setIsActive(false);
