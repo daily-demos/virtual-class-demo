@@ -4,13 +4,16 @@ import PropTypes from 'prop-types';
 import { Intro } from '../components/Prejoin/Intro';
 import NotConfigured from '../components/Prejoin/NotConfigured';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import Daily from '../components/Prejoin/Daily';
 import Capsule from '../components/Capsule';
 import moment from 'moment';
+import { useWindowSize } from '../hooks/useWindowSize';
+import { getGridSize } from '../lib/getGridSize';
 
 export default function Index({ isConfigured = false, domain }) {
   const router = useRouter();
+  const { width } = useWindowSize();
+
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
 
@@ -59,7 +62,7 @@ export default function Index({ isConfigured = false, domain }) {
         main {
           height: 100vh;
           display: grid;
-          grid-template-columns: 600px auto;
+          grid-template-columns: ${getGridSize(width)} auto;
           background: var(--gray-wash);
         }
         .intro {
