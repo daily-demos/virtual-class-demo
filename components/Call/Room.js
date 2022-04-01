@@ -40,7 +40,7 @@ export const Room = () => {
       return orderedParticipantIds.slice(hasScreenshares ? 1 : 0);
     }
     return [];
-  }, [hasScreenshares, orderedParticipantIds]);
+  }, [hasScreenshares, orderedParticipantIds, isBoardActive]);
 
   const isActiveSpeakerView = useMemo(() => {
     return hasScreenshares || !localParticipant?.owner || isBoardActive;
