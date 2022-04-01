@@ -37,12 +37,11 @@ export const VideoGrid = React.memo(
         if (frame) cancelAnimationFrame(frame);
         frame = requestAnimationFrame(() => {
           const dims = containerRef.current?.getBoundingClientRect();
-          if (dims?.width && dims?.height) {
-            setDimensions({
-              width: Math.floor(dims.width),
-              height: Math.floor(dims.height),
-            });
-          }
+          if (!dims) return;
+          setDimensions({
+            width: Math.floor(dims.width),
+            height: Math.floor(dims.height),
+          });
         });
       };
       handleResize();
