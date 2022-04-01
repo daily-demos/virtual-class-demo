@@ -64,10 +64,11 @@ export const ParticipantBar = ({
 
   useResize(() => {
     const scrollEl = scrollRef.current;
+    if (!scrollEl) return;
     /**
      * No participant bar and/or no scroll area
      */
-    setIsSidebarScrollable(scrollEl?.scrollHeight > scrollEl?.clientHeight);
+    setIsSidebarScrollable(scrollEl.scrollHeight > scrollEl.clientHeight);
   }, [scrollRef]);
 
   /**
@@ -156,7 +157,7 @@ export const ParticipantBar = ({
     [activeSpeakerId, aspectRatio, shouldRenderSpeakerBorder, visibleOthers],
   );
 
-  if (fixed.length + others.length === 0 || fixed.length === 0) return null;
+  if (others.length === 0) return null;
 
   return (
     <div
