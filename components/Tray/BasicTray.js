@@ -88,7 +88,7 @@ export const BasicTray = () => {
       if (selected) return POLL_RESULT_MODAL;
       else return POLL_MODAL;
     }
-  }, []);
+  }, [localParticipant?.owner, isActive, selected]);
 
   return (
     <Tray className="tray">
