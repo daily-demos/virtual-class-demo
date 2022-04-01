@@ -6,6 +6,7 @@ import { useDeepCompareMemo } from 'use-deep-compare';
 import { Card, CardBody, CardHeader } from '../Card';
 import { TextInput } from '../Input';
 import Button from '../Button';
+import { ReactComponent as IconTimer } from '../../icons/timer-md.svg';
 
 /**
  * Basic unpaginated video tile grid, scaled by aspect ratio
@@ -56,7 +57,7 @@ export const VideoGrid = React.memo(
     const [tileWidth, tileHeight] = useMemo(() => {
       const width = Math.floor(dimensions.width);
       const height = Math.floor(dimensions.height);
-      const tileCount = participantCount || 0;
+      const tileCount = participantCount === 1 ? 2 : participantCount || 0;
       if (tileCount === 0) return [width, height];
       const dims = [];
       /**
@@ -113,35 +114,43 @@ export const VideoGrid = React.memo(
 
     return (
       <div className="video-grid" ref={containerRef}>
-        <div className="tiles">{tiles}</div>
-        {participantCount < 2 && (
-          <div className="tiles">
-            <div className="invite-others">
+        <div className="tiles">
+          {tiles}
+          {participantCount < 2 && (
+            <div style={{ height: tileHeight, width: tileWidth }}>
               <Card variant="dark">
-                <CardHeader>Waiting for others to join?</CardHeader>
-                <CardBody>
-                  <h3>Copy the link and invite them to the call!</h3>
-                  <div className="link">
-                    <div className="url">
-                      <TextInput
-                        variant="border"
-                        value={window.location.href}
-                        disabled
-                      />
+                <div className="center" style={{ maxHeight: tileHeight }}>
+                  <CardHeader>
+                    <div className="header">
+                      <IconTimer style={{ marginRight: '0.5rem' }} />
+                      Waiting for others to join?
                     </div>
-                    <Button
-                      onClick={() =>
-                        navigator.clipboard.writeText(window.location.href)
-                      }
-                    >
-                      Copy link
-                    </Button>
-                  </div>
-                </CardBody>
+                  </CardHeader>
+                  <div className="divider" />
+                  <CardBody>
+                    <h3>Copy the link and invite them to the call!</h3>
+                    <div className="link">
+                      <div className="url">
+                        <TextInput
+                          variant="border"
+                          value={window.location.href}
+                          disabled
+                        />
+                      </div>
+                      <Button
+                        onClick={() =>
+                          navigator.clipboard.writeText(window.location.href)
+                        }
+                      >
+                        Copy link
+                      </Button>
+                    </div>
+                  </CardBody>
+                </div>
               </Card>
             </div>
-          </div>
-        )}
+          )}
+        </div>
         <style jsx>{`
           .video-grid {
             align-items: center;
@@ -161,19 +170,42 @@ export const VideoGrid = React.memo(
             overflow: hidden;
             width: 100%;
           }
-          .video-grid .invite-others {
+          .video-grid .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .video-grid :global(.card) {
+            height: 100%;
             width: calc(100% - 1.5rem);
+            align-items: center;
+            justify-content: center;
             text-align: center;
           }
-          .video-grid .invite-others .link {
+          .video-grid .center {
+            display: grid;
+            align-items: center;
+            top: 50%;
+            transform: translateY(50%);
+          }
+          .video-grid .divider {
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: var(--spacing-md) 0;
+            background: linear-gradient(90.03deg, #1be6b5 0%, #fb651e 101.71%);
+            height: 6px;
+            width: 64px;
+          }
+          .video-grid .link {
             display: flex;
             gap: 10px;
             align-items: center;
             justify-content: center;
             text-align: center;
           }
-          .video-grid .invite-others .link .url {
-            flex-grow: 0.5;
+          .video-grid .link .url {
+            flex-grow: 0.3;
           }
         `}</style>
       </div>
