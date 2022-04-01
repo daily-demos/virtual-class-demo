@@ -89,19 +89,17 @@ export const HairCheck = () => {
   };
 
   // Memoize the to prevent unnecassary re-renders
-  const tileMemo = useDeepCompareMemo(
-    () => {
-      if (!localParticipant?.session_id) return;
-      return (
-        <Tile
-          sessionId={localParticipant?.session_id}
-          mirrored
-          showAvatar
-          showName={false}
-        />
-      )
-    }, [localParticipant?.session_id]
-  );
+  const tileMemo = useDeepCompareMemo(() => {
+    if (!localParticipant?.session_id) return;
+    return (
+      <Tile
+        sessionId={localParticipant?.session_id}
+        mirrored
+        showAvatar
+        showName={false}
+      />
+    );
+  }, [localParticipant?.session_id]);
 
   const camErrorVerbose = useMemo(() => {
     switch (camState) {
