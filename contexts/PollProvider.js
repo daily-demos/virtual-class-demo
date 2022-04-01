@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   useAppMessage,
@@ -31,7 +31,9 @@ export const PollProvider = ({ children }) => {
   const { openModal, closeModal } = useUIState();
   const localParticipant = useLocalParticipant();
 
-  const [hide, setHide] = useState(!localParticipant?.owner);
+  const [showPoll, setShowPoll] = useState(false);
+
+  useEffect(() => setShowPoll(localParticipant?.owner), [localParticipant?.owner]);
 
   const resetValues = useCallback(() => {
     setIsActive(false);
@@ -39,7 +41,7 @@ export const PollProvider = ({ children }) => {
     setOptions(['', '']);
     setResults({});
     setSelected(null);
-    if (!localParticipant?.owner) setHide(true);
+    if (!localParticipant?.owner) setShowPoll(false);
   }, [localParticipant?.owner]);
 
   const sendAppMessage = useAppMessage({
@@ -56,7 +58,7 @@ export const PollProvider = ({ children }) => {
             setQuestion(msg.question);
             setOptions(msg.options);
             openModal(localParticipant.owner ? POLL_RESULT_MODAL : POLL_MODAL);
-            setHide(false);
+            setShowPoll(true);
             break;
           case 'selected-answer-poll':
             const newResults = results;
@@ -113,7 +115,7 @@ export const PollProvider = ({ children }) => {
   return (
     <PollContext.Provider
       value={{
-        hideTray: hide,
+        showPoll,
         isActive,
         selected,
         question,

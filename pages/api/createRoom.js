@@ -28,10 +28,10 @@ export default async function handler(req, res) {
       options,
     );
 
-    const { name, url, error } = await dailyRes.json();
+    const { name, url, error, info } = await dailyRes.json();
 
     if (error) {
-      return res.status(500).json({ error });
+      return res.status(500).json({ error: info });
     }
 
     return res

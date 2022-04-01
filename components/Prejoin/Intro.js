@@ -20,11 +20,12 @@ export const Intro = ({ error, creating, onCreate }) => {
   useEffect(() => {
     const getTranscriptionStatus = async () => {
       const res = await fetch('/api/transcription');
-      const resJson = await res.json();
-      setIsTranscriptionEnabled(resJson?.isTranscriptionEnabled);
+      return await res.json();
     };
 
-    getTranscriptionStatus();
+    getTranscriptionStatus().then(res =>
+      setIsTranscriptionEnabled(res?.isTranscriptionEnabled),
+    );
   });
 
   return (
@@ -38,7 +39,7 @@ export const Intro = ({ error, creating, onCreate }) => {
         </p>
       </div>
       <Card>
-        {error && <Well variant="error">Failed to create room, {error}</Well>}
+        {error && <Well variant="error">An error occurred, {error}</Well>}
         {!creating ? (
           <form
             onSubmit={e => {
@@ -93,7 +94,7 @@ export const Intro = ({ error, creating, onCreate }) => {
                 type="spokes"
                 color="#7B848F"
                 width={25}
-                height={20}
+                height={25}
               />
               <p>Creating room...</p>
             </div>
@@ -131,8 +132,11 @@ export const Intro = ({ error, creating, onCreate }) => {
           justify-content: center;
         }
         .loading p {
-          font-weight: 400;
+          margin-top: var(--spacing-xs);
+          font-weight: var(--weight-bold);
           font-size: 16px;
+          line-height: 100%;
+          color: var(--text-default);
         }
       `}</style>
     </div>
