@@ -14,7 +14,7 @@ function App({ Component, pageProps }) {
         <title>Daily - {process.env.PROJECT_TITLE}</title>
       </Head>
       <GlobalStyle />
-      {size.width < 900 ? (
+      {size.width <= 540 ? (
         <div className="not-responsive">
           <Card>
             <CardHeader>Uh-oh, sorry, page is not mobile friendly</CardHeader>

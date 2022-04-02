@@ -119,7 +119,10 @@ export const VideoGrid = React.memo(
           {participantCount < 2 && (
             <div style={{ height: tileHeight, width: tileWidth }}>
               <Card variant="dark">
-                <div className="center" style={{ maxHeight: tileHeight }}>
+                <div
+                  className="center"
+                  style={{ maxHeight: tileHeight, maxWidth: tileWidth }}
+                >
                   <CardHeader>
                     <div className="header">
                       <IconTimer style={{ marginRight: '0.5rem' }} />
@@ -177,7 +180,7 @@ export const VideoGrid = React.memo(
           }
           .video-grid :global(.card) {
             height: 100%;
-            width: calc(100% - 1.5rem);
+            width: 100%;
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -186,7 +189,7 @@ export const VideoGrid = React.memo(
             display: grid;
             align-items: center;
             top: 50%;
-            transform: translateY(50%);
+            transform: translateY(30%);
           }
           .video-grid .divider {
             position: relative;
@@ -205,7 +208,7 @@ export const VideoGrid = React.memo(
             text-align: center;
           }
           .video-grid .link .url {
-            flex-grow: 0.3;
+            flex-grow: 0.5;
           }
         `}</style>
       </div>
