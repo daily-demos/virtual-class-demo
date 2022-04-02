@@ -46,7 +46,7 @@ export default function Index({ isConfigured = false, domain }) {
 
   return (
     <main>
-      <Daily />
+      {width > 900 && <Daily />}
       <div className="intro">
         <div className="domain">
           <Capsule variant="gray">{domain}.daily.co</Capsule>

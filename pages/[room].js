@@ -61,7 +61,7 @@ export default function Room({ domain, isConfigured = false }) {
   if (!isReady) {
     return (
       <main>
-        <Daily />
+        {width > 900 && <Daily />}
         <div className="intro">
           <div className="domain">
             <Capsule variant="gray">{domain}.daily.co</Capsule>
