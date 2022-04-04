@@ -17,8 +17,22 @@
 - Handle media and call errors
 - Obtain call access token via Daily REST API
 - Handle pre-authentication, knock for access and auto-join
+- This demo has two participant types:
+  - Teachers, who can:
+    - Can screen share
+    - start whiteboard
+    - allow students to talk
+  - participants, who can:
+    - join the call
+    - view the whiteboard
 
 Please note: this demo is not currently mobile optimised
+
+### Setting up transcription
+
+For testing the transcription service, you will have to register for a
+Deepgram API key and configure your Daily domain with that key. Get instructions
+under `enable_transcription` in our [domain configuration](https://docs.daily.co/reference/rest-api/your-domain/config#enable_transcription) documentation.
 
 ### Getting started
 

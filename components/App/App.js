@@ -9,9 +9,9 @@ import { Asides } from './Asides';
 import { Modals } from './Modals';
 
 export const App = ({ customComponentForState }) => {
-  const { roomExp, state } = useCallState();
+  const { state } = useCallState();
 
-  const componentForState = useCallUI({
+  const mainContent = useCallUI({
     state,
     room: <Room />,
     ...customComponentForState,
@@ -22,7 +22,7 @@ export const App = ({ customComponentForState }) => {
     () => (
       <>
         <div className="app">
-          {componentForState()}
+          {mainContent()}
           <Modals />
           <Asides />
           <style jsx>{`
@@ -39,7 +39,7 @@ export const App = ({ customComponentForState }) => {
         </div>
       </>
     ),
-    [componentForState, roomExp],
+    [mainContent],
   );
 };
 
