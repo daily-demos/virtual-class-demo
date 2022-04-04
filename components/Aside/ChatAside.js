@@ -39,6 +39,12 @@ export const ChatAside = () => {
     }
   }, [chatHistory?.length]);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    sendMessage(newMessage);
+    setNewMessage('');
+  };
+
   if (!showAside || showAside !== CHAT_ASIDE) {
     return null;
   }
@@ -70,13 +76,7 @@ export const ChatAside = () => {
           ))}
         </div>
       )}
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          sendMessage(newMessage);
-          setNewMessage('');
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <footer className="chat-footer">
           <Button
             variant="gray"

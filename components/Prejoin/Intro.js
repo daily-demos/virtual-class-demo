@@ -16,6 +16,7 @@ export const Intro = ({ error, creating, onCreate }) => {
   const [duration, setDuration] = useState('30');
   const [isTranscriptionEnabled, setIsTranscriptionEnabled] = useState(false);
   const [enableTrans, setEnableTrans] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const getTranscriptionStatus = async () => {
@@ -23,9 +24,10 @@ export const Intro = ({ error, creating, onCreate }) => {
       return await res.json();
     };
 
-    getTranscriptionStatus().then(res =>
-      setIsTranscriptionEnabled(res?.isTranscriptionEnabled),
-    );
+    getTranscriptionStatus().then(res => {
+      setIsTranscriptionEnabled(res?.isTranscriptionEnabled);
+      setLoaded(true);
+    });
   });
 
   return (
@@ -68,7 +70,18 @@ export const Intro = ({ error, creating, onCreate }) => {
               </Field>
               <Field label="Transcribe this meeting (show subtitles)">
                 <div className="subtitle">
-                  Please note that partner fees may apply
+                  {loaded && !isTranscriptionEnabled ? (
+                    <>
+                      Transcription is not available. To use transcription,
+                      follow{' '}
+                      <a href="https://docs.daily.co/reference/daily-js/events/transcription-events#main">
+                        these instructions
+                      </a>{' '}
+                      for enabling it
+                    </>
+                  ) : (
+                    <>Please note that partner fees may apply</>
+                  )}
                 </div>
                 <BooleanInput
                   value={enableTrans}

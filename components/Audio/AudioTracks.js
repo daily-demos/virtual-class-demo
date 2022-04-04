@@ -12,7 +12,6 @@ export const AudioTracks = () => {
   const { disableAudio } = useCallState();
   const { topology } = useNetwork();
   const { setShowAutoplayFailedModal } = useUIState();
-  const [isClient, setIsClient] = useState(false);
 
   const subscribedIds = useParticipantIds({
     filter: useCallback(
@@ -23,10 +22,6 @@ export const AudioTracks = () => {
       [],
     ),
   });
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     const playTracks = () => {
@@ -49,6 +44,9 @@ export const AudioTracks = () => {
 
   const tracksComponent = useMemo(() => {
     if (disableAudio) return null;
+    // audio cuts out on using Chrome 93+ on macOS 12+ with calls > 2 people,
+    // using Web audio in safari is causing audio output issues, so we are going
+    // to have separate audio tags
     if (isSafari() || topology === 'peer') {
       return subscribedIds.map(sessionId => (
         <AudioTrack key={sessionId} sessionId={sessionId} />
@@ -56,9 +54,6 @@ export const AudioTracks = () => {
     }
     return <WebAudioTracks />;
   }, [disableAudio, subscribedIds, topology]);
-
-  // Only render audio tracks in browser
-  if (!isClient) return null;
 
   return (
     <Portal key="AudioTracks">
