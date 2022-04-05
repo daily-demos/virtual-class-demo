@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import HeaderCapsule from '../HeaderCapsule';
-import { ReactComponent as IconTimer } from '../../icons/timer-md.svg';
+import { ReactComponent as IconTimer } from '../../icons/timer-sm.svg';
+import Button from '../Button';
 
 export const ExpiryTimer = ({ expiry }) => {
   const [secs, setSecs] = useState('--:--');
@@ -28,9 +28,9 @@ export const ExpiryTimer = ({ expiry }) => {
 
   return (
     <div className="countdown">
-      <HeaderCapsule>
-        <IconTimer /> {secs} remaining
-      </HeaderCapsule>
+      <Button variant="header-dark" disabled IconBefore={IconTimer}>
+        {secs} REMAINING
+      </Button>
       <style jsx>{`
         .countdown {
           font-size: 13px;
