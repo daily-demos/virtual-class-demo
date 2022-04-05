@@ -5,12 +5,13 @@ import { ReactComponent as IconPoint } from '../../icons/point-sm.svg';
 const IntroPoint = ({ children }) => {
   return (
     <div className="point">
-      <IconPoint style={{ marginRight: '.5em' }} />
+      <IconPoint style={{ marginRight: '1rem' }} />
       <p>{children}</p>
       <style jsx>{`
         .point {
           display: flex;
           align-items: center;
+          justify-content: center;
         }
         .point p {
           font-weight: var(--weight-regular);
@@ -52,10 +53,11 @@ const Daily = () => {
         }
         .logo .content {
           display: flex;
+          position: absolute;
           flex-direction: column;
           justify-content: center;
           top: 50%;
-          transform: translateY(50%);
+          transform: translateY(-50%);
         }
         .logo .footer {
           position: absolute;

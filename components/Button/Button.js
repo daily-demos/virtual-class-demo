@@ -262,6 +262,17 @@ export const Button = forwardRef(
             color: var(--primary-dark);
           }
 
+          .button.clipboard {
+            background-color: var(--gray-wash);
+            border-radius: 9px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border: 1px solid var(--gray-light);
+            border-left: none !important;
+            font-size: 12px;
+            color: #b5c6d6;
+          }
+
           .button.blur {
             background: ${hexa(theme.blue.default, 0.35)};
             backdrop-filter: blur(10px);
