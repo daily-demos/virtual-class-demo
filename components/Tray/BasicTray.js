@@ -132,7 +132,7 @@ export const BasicTray = () => {
       )}
       {!localParticipant?.owner && (
         <TrayButton
-          label={isHandRaised ? 'Cancel' : 'Hand'}
+          label={isHandRaised ? 'Cancel' : 'Question'}
           orange={isHandRaised}
           onClick={raiseHand}
         >

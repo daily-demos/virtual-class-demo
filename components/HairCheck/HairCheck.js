@@ -8,7 +8,7 @@ import Tile from '../Tile';
 import { ACCESS_STATE_LOBBY } from '../../constants';
 import { useUIState } from '../../contexts/UIStateProvider';
 import IconSettings from '../../icons/settings-sm.svg';
-
+import IconArrow from '../../icons/arrow-right-md.svg';
 import {
   useDaily,
   useDevices,
@@ -157,8 +157,12 @@ export const HairCheck = () => {
           value={userName}
           onChange={e => setUserName(e.target.value)}
         />
-        <Button disabled={joining || userName.length < 3} type="submit">
-          Join call
+        <Button
+          IconAfter={IconArrow}
+          disabled={joining || userName.length < 3}
+          type="submit"
+        >
+          Join class
         </Button>
       </>
     );
