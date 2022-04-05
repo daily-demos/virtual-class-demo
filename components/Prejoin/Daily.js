@@ -34,14 +34,14 @@ const Daily = () => {
           height="52px"
         />
       </a>
-      <div className="content">
-        <IntroPoint>Some selling point here.</IntroPoint>
-        <IntroPoint>Some selling point here.</IntroPoint>
-        <IntroPoint>Some selling point here.</IntroPoint>
-        <IntroPoint>Some selling point here.</IntroPoint>
-        <IntroPoint>Some selling point here.</IntroPoint>
-        <IntroPoint>Some selling point here.</IntroPoint>
-      </div>
+      {/*<div className="content">*/}
+      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
+      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
+      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
+      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
+      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
+      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
+      {/*</div>*/}
       <div className="footer">
         Read our <a href="https://docs.daily.co/">documentation</a>
       </div>
