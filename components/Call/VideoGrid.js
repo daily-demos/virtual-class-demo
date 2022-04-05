@@ -7,6 +7,7 @@ import { Card, CardBody, CardHeader } from '../Card';
 import { TextInput } from '../Input';
 import Button from '../Button';
 import { ReactComponent as IconTimer } from '../../icons/timer-md.svg';
+import { useUIState } from '../../contexts/UIStateProvider';
 
 /**
  * Basic unpaginated video tile grid, scaled by aspect ratio
@@ -22,6 +23,7 @@ import { ReactComponent as IconTimer } from '../../icons/timer-md.svg';
 export const VideoGrid = React.memo(
   () => {
     const containerRef = useRef();
+    const { showAside } = useUIState();
     const { participantCount, orderedParticipantIds, localParticipant } =
       useParticipants();
     const [dimensions, setDimensions] = useState({
@@ -52,7 +54,7 @@ export const VideoGrid = React.memo(
         window.removeEventListener('resize', handleResize);
         window.removeEventListener('orientationchange', handleResize);
       };
-    }, [containerRef]);
+    }, [containerRef, showAside]);
 
     const [tileWidth, tileHeight] = useMemo(() => {
       const width = Math.floor(dimensions.width);
