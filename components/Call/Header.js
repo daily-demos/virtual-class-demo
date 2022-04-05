@@ -24,13 +24,15 @@ export const Header = () => {
     () => (
       <header className="room-header">
         {config.exp !== 0 && <ExpiryTimer expiry={config.exp * 1000} />}
-        <Button
-          variant="header-dark"
-          IconBefore={IconInvite}
-          onClick={() => openModal(INVITE_OTHERS_MODAL)}
-        >
-          INVITE TO CLASS
-        </Button>
+        {localParticipant?.owner && (
+          <Button
+            variant="header-dark"
+            IconBefore={IconInvite}
+            onClick={() => openModal(INVITE_OTHERS_MODAL)}
+          >
+            INVITE TO CLASS
+          </Button>
+        )}
         {localParticipant?.owner && (
           <div className="text-right">
             {isTranscriptionEnabled ? (
