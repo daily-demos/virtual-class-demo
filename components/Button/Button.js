@@ -279,6 +279,25 @@ export const Button = forwardRef(
             box-shadow: 0 0 0px 3px ${hexa(theme.blue.default, 0.35)};
           }
 
+          .button.header-dark {
+            background: ${theme.blue.dark};
+            color: white;
+            border: 0px;
+            height: 40px !important;
+            font-size: 12px;
+            line-height: 10px;
+            letter-spacing: 0.5px;
+            padding: 12px;
+            font-weight: 700;
+            border-radius: 6px;
+          }
+          .button.header-dark:focus {
+            box-shadow: 0 0 0px 3px rgba(255, 255, 255, 0.15);
+          }
+          .button.header-dark:disabled {
+            cursor: initial;
+          }
+
           .button.dark {
             background: ${theme.blue.dark};
             color: white;

@@ -119,10 +119,7 @@ export const VideoGrid = React.memo(
           {participantCount < 2 && (
             <div style={{ height: tileHeight, width: tileWidth }}>
               <Card variant="dark">
-                <div
-                  className="center"
-                  style={{ maxHeight: tileHeight, maxWidth: tileWidth }}
-                >
+                <div className="center" style={{ maxHeight: tileHeight, maxWidth: tileWidth }}>
                   <CardHeader>
                     <div className="header">
                       <IconTimer style={{ marginRight: '0.5rem' }} />
@@ -130,25 +127,26 @@ export const VideoGrid = React.memo(
                     </div>
                   </CardHeader>
                   <div className="divider" />
-                  <CardBody>
-                    <h3>Copy the link and invite them to the call!</h3>
-                    <div className="link">
-                      <div className="url">
-                        <TextInput
-                          variant="border"
-                          value={window.location.href}
-                          disabled
-                        />
+                  {localParticipant.owner && (
+                    <CardBody>
+                      <div className="link">
+                        <div className="url">
+                          <TextInput
+                            variant="border"
+                            value={window.location.href}
+                            disabled
+                          />
+                        </div>
+                        <Button
+                          onClick={() =>
+                            navigator.clipboard.writeText(window.location.href)
+                          }
+                        >
+                          Copy link
+                        </Button>
                       </div>
-                      <Button
-                        onClick={() =>
-                          navigator.clipboard.writeText(window.location.href)
-                        }
-                      >
-                        Copy link
-                      </Button>
-                    </div>
-                  </CardBody>
+                    </CardBody>
+                  )}
                 </div>
               </Card>
             </div>
@@ -186,10 +184,9 @@ export const VideoGrid = React.memo(
             text-align: center;
           }
           .video-grid .center {
-            display: grid;
-            align-items: center;
+            position: relative;
             top: 50%;
-            transform: translateY(30%);
+            transform: translateY(-50%);
           }
           .video-grid .divider {
             position: relative;

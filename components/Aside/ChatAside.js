@@ -79,6 +79,7 @@ export const ChatAside = () => {
       <form onSubmit={handleSubmit}>
         <footer className="chat-footer">
           <Button
+            className="emojis-icon"
             variant="gray"
             size="small-circle"
             onClick={() => setShowEmojis(!showEmojis)}
@@ -150,7 +151,7 @@ export const ChatAside = () => {
         .chat-footer {
           flex-flow: row nowrap;
           box-sizing: border-box;
-          padding: var(--spacing-xxs) 0;
+          padding: var(--spacing-xxs) 0 var(--spacing-xxs) var(--spacing-xxs);
           display: flex;
           position: relative;
           border-top: 1px solid var(--gray-light);

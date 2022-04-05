@@ -5,9 +5,12 @@ import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useTranscription } from '../../contexts/TranscriptionProvider';
 import { ReactComponent as IconTalk } from '../../icons/talk-sm.svg';
 import { ReactComponent as IconTranscription } from '../../icons/transcription-sm.svg';
+import { ReactComponent as IconInvite } from '../../icons/invite-sm.svg';
 import { useUIState } from '../../contexts/UIStateProvider';
 import ExpiryTimer from '../ExpiryTimer';
 import { useRoom } from '@daily-co/daily-react-hooks';
+import Button from '../Button';
+import { INVITE_OTHERS_MODAL } from './InviteOthersModal';
 
 export const Header = () => {
   const { allowToTalk, setAllowToTalk } = useAppState();
@@ -21,6 +24,13 @@ export const Header = () => {
     () => (
       <header className="room-header">
         {config.exp !== 0 && <ExpiryTimer expiry={config.exp * 1000} />}
+        <Button
+          variant="header-dark"
+          IconBefore={IconInvite}
+          onClick={() => openModal(INVITE_OTHERS_MODAL)}
+        >
+          INVITE TO CLASS
+        </Button>
         {localParticipant?.owner && (
           <div className="text-right">
             {isTranscriptionEnabled ? (

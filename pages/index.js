@@ -78,6 +78,10 @@ export default function Index({ isConfigured = false, domain }) {
           margin-left: auto;
           position: absolute;
         }
+        .domain :global(.capsule) {
+          padding: var(--spacing-xxxs);
+          border-radius: 6px;
+        }
       `}</style>
     </main>
   );

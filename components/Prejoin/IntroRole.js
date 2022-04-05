@@ -80,7 +80,7 @@ export const IntroRole = ({ error, onJoin }) => {
         }
         .role :global(.capsule) {
           margin: 0;
-          padding: var(--spacing-xxs);
+          padding: var(--spacing-xxxs);
           border-radius: 6px;
         }
         .header {
