@@ -54,13 +54,13 @@ export const AppStateProvider = ({ children }) => {
         });
       }
     },
-    [localParticipant],
+    [localParticipant?.session_id],
   );
 
   const raiseHand = useCallback(() => {
     onHandRaise(!isHandRaised);
     setIsHandRaised(raise => !raise);
-  }, [isHandRaised]);
+  }, [isHandRaised, localParticipant?.session_id]);
 
   const createBoard = useCallback(
     (boardId = null) => {
