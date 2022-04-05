@@ -8,7 +8,6 @@ import Daily from '../components/Prejoin/Daily';
 import Capsule from '../components/Capsule';
 import moment from 'moment';
 import { useWindowSize } from '../hooks/useWindowSize';
-import { getGridSize } from '../lib/getGridSize';
 
 export default function Index({ isConfigured = false, domain }) {
   const router = useRouter();
@@ -62,7 +61,7 @@ export default function Index({ isConfigured = false, domain }) {
         main {
           height: 100vh;
           display: grid;
-          grid-template-columns: ${getGridSize(width)} auto;
+          grid-template-columns: ${width > 900 ? '30%': 'auto'} auto;
           background: var(--gray-wash);
         }
         .intro {

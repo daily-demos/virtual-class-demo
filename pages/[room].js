@@ -15,7 +15,6 @@ import IntroRole from '../components/Prejoin/IntroRole';
 import { useRouter } from 'next/router';
 import Daily from '../components/Prejoin/Daily';
 import Capsule from '../components/Capsule';
-import { getGridSize } from '../lib/getGridSize';
 import { useWindowSize } from '../hooks/useWindowSize';
 
 export default function Room({ domain, isConfigured = false }) {
@@ -80,7 +79,7 @@ export default function Room({ domain, isConfigured = false }) {
           main {
             height: 100vh;
             display: grid;
-            grid-template-columns: ${getGridSize(width)} auto;
+            grid-template-columns: ${width > 900 ? '30%': 'auto'} auto;
             background: var(--gray-wash);
           }
           .intro {
