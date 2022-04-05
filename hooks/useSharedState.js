@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useCallState } from '../contexts/CallProvider';
+import { useDaily, useDailyEvent } from '@daily-co/daily-react-hooks';
 
 // @params initialValues - initial values of the shared state.
 // @params broadcast - share the state with the other participants whenever the state changes.
 export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
-  const { callObject } = useCallState();
+  const daily = useDaily();
   const stateRef = useRef(null);
   const requestIntervalRef = useRef(null);
 
@@ -26,7 +26,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
           if (!stateRef.current.setAt) return;
 
           // if there is, we will send the shared-state to everyone in the call
-          callObject.sendAppMessage(
+          daily.sendAppMessage(
             {
               message: {
                 type: 'set-shared-state',
@@ -53,7 +53,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
           break;
       }
     },
-    [stateRef, callObject],
+    [stateRef, daily],
   );
 
   // whenever local user joins, we randomly pick a participant from the call and request him for the state.
@@ -61,7 +61,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
     const randomDelay = 1000 + Math.ceil(1000 * Math.random());
 
     requestIntervalRef.current = setInterval(() => {
-      const callObjectParticipants = callObject.participants();
+      const callObjectParticipants = daily.participants();
       const participants = Object.values(callObjectParticipants);
       const localParticipant = callObjectParticipants.local;
 
@@ -81,7 +81,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
           ];
 
         // send the request for the shared state
-        callObject.sendAppMessage(
+        daily.sendAppMessage(
           {
             message: {
               type: 'request-shared-state',
@@ -98,19 +98,11 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
     setTimeout(() => clearInterval(requestIntervalRef.current), 10000);
 
     return () => clearInterval(requestIntervalRef.current);
-  }, [callObject]);
+  }, [daily]);
 
   // Add event listeners to the Daily call object if it exists
-  useEffect(() => {
-    if (!callObject) return;
-    callObject.on('app-message', handleAppMessage);
-    callObject.on('joined-meeting', handleJoinedMeeting);
-
-    return () => {
-      callObject.off('app-message', handleAppMessage);
-      callObject.off('joined-meeting', handleJoinedMeeting);
-    };
-  }, [callObject, handleAppMessage, handleJoinedMeeting]);
+  useDailyEvent('app-message', handleAppMessage);
+  useDailyEvent('joined-meeting', handleJoinedMeeting);
 
   useEffect(() => {
     stateRef.current = state;
@@ -132,7 +124,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
         };
         // if broadcast is true, we send the state to everyone in the call whenever the state changes.
         if (broadcast) {
-          callObject.sendAppMessage(
+          daily.sendAppMessage(
             {
               message: {
                 type: 'set-shared-state',
@@ -145,7 +137,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
         return stateObj;
       });
     },
-    [broadcast, callObject],
+    [broadcast, daily],
   );
 
   // returns the sharedState and the setSharedState function
