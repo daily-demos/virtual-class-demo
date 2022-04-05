@@ -119,7 +119,10 @@ export const VideoGrid = React.memo(
           {participantCount < 2 && (
             <div style={{ height: tileHeight, width: tileWidth }}>
               <Card variant="dark">
-                <div className="center" style={{ maxHeight: tileHeight, maxWidth: tileWidth }}>
+                <div
+                  className="center"
+                  style={{ maxHeight: tileHeight, maxWidth: tileWidth }}
+                >
                   <CardHeader>
                     <div className="header">
                       <IconTimer style={{ marginRight: '0.5rem' }} />
