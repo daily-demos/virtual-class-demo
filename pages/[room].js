@@ -74,6 +74,7 @@ export default function Room({ domain, isConfigured = false }) {
             }
           />
         </div>
+        <div className="bg" />
 
         <style jsx>{`
           main {
@@ -88,6 +89,17 @@ export default function Room({ domain, isConfigured = false }) {
             justify-content: center;
             height: 100%;
             width: 100%;
+            z-index: 100;
+          }
+          .bg {
+            position: absolute;
+            right: 0;
+            margin-left: auto;
+            height: 100%;
+            width: 100%;
+            background: url('/assets/setup-bg.png') bottom right no-repeat;
+            opacity: 0.1;
+            z-index: 0;
           }
           .domain {
             top: 20px;

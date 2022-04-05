@@ -48,6 +48,7 @@ const Daily = () => {
         .logo {
           padding: 2rem;
           background: white;
+          z-index: 100;
         }
         .logo .content {
           display: flex;
