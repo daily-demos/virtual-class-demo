@@ -103,7 +103,7 @@ PersonRow.propTypes = {
 export const PeopleAside = () => {
   const { callObject } = useCallState();
   const { showAside, setShowAside } = useUIState();
-  const { participantIds, isOwner } = useParticipants();
+  const { participantIds, isOwner, participantCount } = useParticipants();
 
   const muteAll = useCallback(
     deviceType => {
@@ -165,6 +165,10 @@ export const PeopleAside = () => {
             </Button>
           </div>
         )}
+        <p className="info">
+          {participantCount} {participantCount > 1 ? 'persons' : 'person'} in
+          call
+        </p>
         <div className="rows">
           {participantIds.map(p => (
             <PersonRow sessionId={p} key={p} isOwner={isOwner} />
@@ -175,7 +179,12 @@ export const PeopleAside = () => {
             .people-aside {
               display: block;
             }
-
+            .people-aside .info {
+              font-weight: var(--weight-regular);
+              font-size: 14px;
+              color: #626262;
+              padding: 0 var(--spacing-xxxs);
+            }
             .owner-actions {
               display: flex;
               align-items: center;
