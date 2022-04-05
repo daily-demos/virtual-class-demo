@@ -110,9 +110,8 @@ export const Modal = ({
         }
 
         .backdrop .modal {
-          margin: 40px auto;
+          margin: 20vh auto;
           opacity: 0;
-          transform: scale(0.95);
           transition: opacity ${transitionMs}ms ease,
             transform ${transitionMs}ms ease;
           width: 90vw;

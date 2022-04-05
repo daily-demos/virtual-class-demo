@@ -13,16 +13,7 @@ export const DeviceSelectModal = () => {
     <Modal
       title="Select your device"
       isOpen={currentModals[DEVICE_MODAL]}
-      onClose={() => closeModal(DEVICE_MODAL)}
-      actions={[
-        <Button key="close" fullWidth variant="outline">
-          Cancel
-        </Button>,
-        <Button key="update" fullWidth>
-          Update
-        </Button>,
-      ]}
-    >
+      onClose={() => closeModal(DEVICE_MODAL)}>
       <DeviceSelect />
     </Modal>
   );
