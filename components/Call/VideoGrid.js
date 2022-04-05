@@ -102,7 +102,10 @@ export const VideoGrid = React.memo(
             sessionId={p}
             key={p}
             mirrored
-            style={{ maxWidth: tileWidth, maxHeight: tileHeight }}
+            style={{
+              maxWidth: participantCount < 2 ? tileWidth : tileWidth - 8,
+              maxHeight: tileHeight,
+            }}
           />
         )),
       [tileWidth, tileHeight, visibleParticipants],
@@ -119,10 +122,7 @@ export const VideoGrid = React.memo(
           {participantCount < 2 && (
             <div style={{ height: tileHeight, width: tileWidth }}>
               <Card variant="dark">
-                <div
-                  className="center"
-                  style={{ maxHeight: tileHeight, maxWidth: tileWidth }}
-                >
+                <div className="center">
                   <CardHeader>
                     <div className="header">
                       <IconTimer style={{ marginRight: '0.5rem' }} />
@@ -173,6 +173,7 @@ export const VideoGrid = React.memo(
             margin: auto;
             overflow: hidden;
             width: 100%;
+            gap: ${participantCount < 2 ? '0' : '8px'};
           }
           .video-grid .header {
             display: flex;
