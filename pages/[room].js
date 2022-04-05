@@ -80,7 +80,7 @@ export default function Room({ domain, isConfigured = false }) {
           main {
             height: 100vh;
             display: grid;
-            grid-template-columns: ${width > 900 ? '30%': 'auto'} auto;
+            grid-template-columns: ${width > 900 ? '30%' : 'auto'} auto;
             background: var(--gray-wash);
           }
           .intro {

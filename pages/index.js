@@ -62,7 +62,7 @@ export default function Index({ isConfigured = false, domain }) {
         main {
           height: 100vh;
           display: grid;
-          grid-template-columns: ${width > 900 ? '30%': 'auto'} auto;
+          grid-template-columns: ${width > 900 ? '30%' : 'auto'} auto;
           background: var(--gray-wash);
         }
         .bg {

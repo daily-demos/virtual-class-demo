@@ -15,6 +15,7 @@ export const Field = ({ label, children }) => (
         font-weight: var(--weight-medium);
         color: var(--text-default);
         margin-bottom: var(--spacing-xxxs);
+        font-size: 16px;
       }
     `}</style>
   </div>

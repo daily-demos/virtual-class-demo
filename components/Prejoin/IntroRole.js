@@ -7,6 +7,7 @@ import { ReactComponent as IconArrowRight } from '../../icons/arrow-right-md.svg
 import PropTypes from 'prop-types';
 import { TextInput } from '../Input';
 import Field from '../Field';
+import { ClipboardButton } from '../Clipboard';
 
 export const IntroRole = ({ error, onJoin }) => {
   return (
@@ -64,11 +65,10 @@ export const IntroRole = ({ error, onJoin }) => {
 
           <div>
             <Field label="Share student invite link:">
-              <TextInput
+              <ClipboardButton
                 value={
                   typeof window !== 'undefined' ? window.location.href : null
                 }
-                disabled
               />
             </Field>
           </div>
