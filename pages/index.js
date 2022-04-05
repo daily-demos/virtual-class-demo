@@ -56,6 +56,7 @@ export default function Index({ isConfigured = false, domain }) {
           <Intro error={error} creating={creating} onCreate={createRoom} />
         )}
       </div>
+      <div className="bg" />
 
       <style jsx>{`
         main {
@@ -64,12 +65,23 @@ export default function Index({ isConfigured = false, domain }) {
           grid-template-columns: ${width > 900 ? '30%': 'auto'} auto;
           background: var(--gray-wash);
         }
+        .bg {
+          position: absolute;
+          right: 0;
+          margin-left: auto;
+          height: 100%;
+          width: 100%;
+          background: url('/assets/setup-bg.png') bottom right no-repeat;
+          opacity: 0.1;
+          z-index: 0;
+        }
         .intro {
           display: grid;
           align-items: center;
           justify-content: center;
           height: 100%;
           width: 100%;
+          z-index: 100;
         }
         .domain {
           top: 20px;
