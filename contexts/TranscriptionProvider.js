@@ -24,6 +24,8 @@ export const TranscriptionProvider = ({ children }) => {
 
   const handleNewMessage = useCallback(e => {
     if (e.fromId === 'transcription' && e.data?.is_final) {
+      // to let late joiners that the transcription is active.
+      setIsTranscribing(true);
       setTranscriptionHistory(oldState => [
         ...oldState,
         `${e.data.user_name}: ${e.data.text}`,
