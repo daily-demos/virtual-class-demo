@@ -11,7 +11,6 @@ const IntroPoint = ({ children }) => {
         .point {
           display: flex;
           align-items: center;
-          justify-content: center;
         }
         .point p {
           font-weight: var(--weight-regular);
@@ -34,14 +33,13 @@ const Daily = () => {
           height="52px"
         />
       </a>
-      {/*<div className="content">*/}
-      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
-      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
-      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
-      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
-      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
-      {/*  <IntroPoint>Some selling point here.</IntroPoint>*/}
-      {/*</div>*/}
+      <div className="content">
+        <IntroPoint>Teacher moderation tools</IntroPoint>
+        <IntroPoint>Real-time speech transcription</IntroPoint>
+        <IntroPoint>Screen sharing and text chat</IntroPoint>
+        <IntroPoint>Collaborative white board</IntroPoint>
+        <IntroPoint>Question and answer polls</IntroPoint>
+      </div>
       <div className="footer">
         Read our <a href="https://docs.daily.co/">documentation</a>
       </div>
