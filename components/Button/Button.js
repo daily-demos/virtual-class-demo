@@ -345,6 +345,20 @@ export const Button = forwardRef(
             opacity: 0.35;
           }
 
+          .button.whiteboard {
+            background: #f7f9fa;
+            color: #6b7785;
+            border: 0;
+            height: 45px;
+          }
+
+          .button.whiteboard-toolbar {
+            background: #ffffff;
+            color: #2b3f56;
+            border: 0;
+            height: 45px;
+          }
+
           .button.white {
             background: white;
             border: 1px solid #c8d1dc;
