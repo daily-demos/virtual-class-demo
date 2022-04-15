@@ -64,7 +64,10 @@ export const AppStateProvider = ({ children }) => {
 
   const createBoard = useCallback(
     (boardId = null) => {
-      const zwb = Zwibbler.create('#whiteboard');
+      const zwb = Zwibbler.create('#whiteboard', {
+        showToolbar: false,
+        showColourPanel: false,
+      });
       setBoard(zwb);
 
       if (!boardId) {
@@ -124,6 +127,7 @@ export const AppStateProvider = ({ children }) => {
   return (
     <AppStateContext.Provider
       value={{
+        board,
         isBoardActive: sharedState.isBoardActive,
         createBoard,
         deleteBoard,

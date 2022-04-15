@@ -9,6 +9,7 @@ import { SpeakerTile } from '../SpeakerTile';
 import { Container } from './Container';
 import Header from './Header';
 import VideoGrid from './VideoGrid';
+import { Whiteboard } from '../Whiteboard';
 
 const SIDEBAR_WIDTH = 186;
 
@@ -51,10 +52,7 @@ export const Room = () => {
       <Container>
         <Header />
         <VideoContainer>
-          <div
-            id="whiteboard"
-            style={{ display: !isBoardActive ? 'none' : '' }}
-          />
+          <Whiteboard />
           {!isBoardActive && (
             <>
               {isActiveSpeakerView ? (
@@ -101,11 +99,6 @@ export const Room = () => {
           justify-content: center;
           height: 100%;
           width: 100%;
-        }
-        #whiteboard {
-          height: 100%;
-          width: 100%;
-          background: #fff;
         }
         .transcriptions {
           position: absolute;
