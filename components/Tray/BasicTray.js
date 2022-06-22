@@ -30,6 +30,7 @@ import { CREATE_POLL_MODAL } from '../Call/CreatePollModal';
 import { usePoll } from '../../contexts/PollProvider';
 import { POLL_RESULT_MODAL } from '../Call/PollResultModal';
 import { POLL_MODAL } from '../Call/PollModal';
+import { BACKGROUND_EFFECTS_MODAL } from '../Call/BackgroundEffectModal';
 
 const MAX_SCREEN_SHARES = 2;
 
@@ -120,6 +121,13 @@ export const BasicTray = () => {
         onClick={() => toggleAside(CHAT_ASIDE)}
       >
         <IconChat />
+      </TrayButton>
+      <TrayButton
+        label="Effects"
+        orange={currentModals[BACKGROUND_EFFECTS_MODAL]}
+        onClick={() => openModal(BACKGROUND_EFFECTS_MODAL)}
+      >
+        <IconPoll />
       </TrayButton>
       {showPoll && (
         <TrayButton

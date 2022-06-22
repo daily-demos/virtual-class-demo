@@ -4,6 +4,7 @@ import InviteOthersModal from '../Call/InviteOthersModal';
 import CreatePollModal from '../Call/CreatePollModal';
 import PollModal from '../Call/PollModal';
 import PollResultModal from '../Call/PollResultModal';
+import BackgroundEffectsModal from '../Call/BackgroundEffectModal';
 
 export const Modals = () => {
   return (
@@ -13,6 +14,7 @@ export const Modals = () => {
       <CreatePollModal />
       <PollModal />
       <PollResultModal />
+      <BackgroundEffectsModal />
     </>
   );
 };

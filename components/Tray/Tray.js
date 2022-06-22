@@ -10,8 +10,9 @@ export const TrayButton = ({
   bubble = false,
   orange = false,
   disabled = false,
+  effects = false,
 }) => {
-  const cx = classNames('tray-button', { orange, bubble });
+  const cx = classNames('tray-button', { orange, bubble, effects });
   return (
     <div className={cx}>
       <Button
@@ -45,6 +46,10 @@ export const TrayButton = ({
           background: var(--green-default);
           border-radius: 50%;
           z-index: 99;
+        }
+        
+        .tray-button.effects span {
+          color: black;
         }
 
         span {

@@ -21,6 +21,7 @@ import {
   VIDEO_QUALITY_AUTO,
 } from '../constants';
 import { useCallMachine } from './useCallMachine';
+import Bowser from 'bowser';
 
 export const CallContext = createContext();
 
@@ -36,6 +37,8 @@ export const CallProvider = ({
   const [videoQuality, setVideoQuality] = useState(VIDEO_QUALITY_AUTO);
   const [preJoinNonAuthorized, setPreJoinNonAuthorized] = useState(false);
   const [showNames, setShowNames] = useState(true);
+  const [supportsVideoProcessing, setSupportsVideoProcessing] = useState(null);
+  const bgEffects = localStorage.getItem('bg-effect');
 
   // Daily CallMachine hook (primarily handles status of the call)
   const { daily, disableAudio, leave, state, setRedirectOnLeave } =
@@ -70,12 +73,46 @@ export const CallProvider = ({
 
   useEffect(() => {
     if (!daily) return;
+    const updateRoomConfigState = async () => {
+      const roomConfig = await daily.room();
+      const config = roomConfig?.config;
+      if (!config) return;
+
+      const browser = Bowser.parse(window.navigator.userAgent);
+      const browserSupportsVideoProcessing = browser.platform.type === 'desktop';
+      if (browserSupportsVideoProcessing) {
+        setSupportsVideoProcessing(
+          roomConfig?.config?.enable_video_processing_ui ??
+          roomConfig?.domainConfig?.enable_video_processing_ui
+        )
+      }
+    };
+    updateRoomConfigState();
+  }, [state, daily]);
+
+  useEffect(() => {
+    if (!daily) return;
 
     if (cleanURLOnJoin)
       daily.on('joined-meeting', () => router.replace(`/${room}`));
 
     return () => daily.off('joined-meeting', () => router.replace(`/${room}`));
   }, [cleanURLOnJoin, daily, room, router]);
+
+  useEffect(() => {
+    if (!daily || !bgEffects) return;
+
+    const turnOnBgEffects = (ev) => {
+      if (ev.participant.local && ev.track.kind === 'video') {
+        daily.updateInputSettings({
+          video: { processor: JSON.parse(bgEffects) }
+        });
+        daily.off('track-started', turnOnBgEffects);
+      }
+    };
+
+    daily.on('track-started', turnOnBgEffects);
+  }, [daily]);
 
   return (
     <CallContext.Provider
@@ -94,6 +131,7 @@ export const CallProvider = ({
         disableAudio,
         showNames,
         setShowNames,
+        supportsVideoProcessing,
       }}
     >
       <DailyProvider callObject={daily}>{children}</DailyProvider>
